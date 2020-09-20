@@ -33,11 +33,11 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v1
 
+      - name: Install briana-client deps
+        run:  npm install
+       
       - name: Run briana-client tests
-        run: |
-         npm install
-         npm run test
-         npm run lint
+        run:  npm run test
 
       - name: Run briana-server tests
         run:  mvn test
