@@ -54,7 +54,7 @@ jobs:
         run: |
          mkdir ${{ env.ARTIFACT_NAME }}
          cp briana-server/target/${{ env.BRIANA_SERVER_BUILD_NAME }} ${{ env.ARTIFACT_NAME }}
-         cp -r briana-client/dist ${{ env.ARTIFACT_NAME }}
+         cp -r briana-client/dist/briana-client ${{ env.ARTIFACT_NAME }}
 
       - name: Archive production artifacts
         run:  zip -r ${{ env.ARTIFACT_NAME }}.zip build
