@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  briana-client:
+    container_name: briana-client
+    build: ./briana-client/
+    restart: always
+    links:
+      - briana-server
+    expose:
+      - "80"
+    ports:
+      - "80:80"
+
+  briana-server:
+    container_name: briana-server
+    build: ./briana-server/
+    restart: always
+    expose:
+      - "8080"
