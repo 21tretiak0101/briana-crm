@@ -2,19 +2,18 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
-export interface ITask {
+export interface Message {
     response: string
 }
 
 @Injectable({
     providedIn: 'root'
 })
-export class BookService {
+export class TestService {
 
     constructor(private http: HttpClient) { }
 
-
-    getHello() : Observable<ITask> {
-        return this.http.get<ITask>("/api");
+    getMessage() : Observable<Message> {
+        return this.http.get<Message>("/api");
     }
 }

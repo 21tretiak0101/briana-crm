@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {BookService} from '../service/book.service';
+import {TestService} from '../service/test.service';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +8,13 @@ import {BookService} from '../service/book.service';
 })
 export class AppComponent {
 
-  constructor(private service: BookService) { }
+  constructor(private service: TestService) { }
 
   title = 'briana-client';
   hello = '';
 
   click() {
-    this.service.getHello().subscribe((message) => {
+    this.service.getMessage().subscribe((message) => {
       console.log(message);
       this.hello = message.response;
     })
