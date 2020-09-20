@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Install briana-client deps
-        run:  npm install
+        run:  cd briana-client/ && npm install
        
       - name: Run briana-client tests
         run:  npm run test
