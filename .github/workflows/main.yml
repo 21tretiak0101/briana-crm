@@ -89,7 +89,7 @@ jobs:
          mkdir briana-client/dist/briana-client
          ls
          mv ${{ env.ARTIFACT_NAME }}/${{ env.BRIANA_SERVER_BUILD_NAME }} briana-server/target/
-         mv -r ${{ env.ARTIFACT_NAME }}/ briana-client/dist/briana-client/
+         mv -r ${{ env.ARTIFACT_NAME }}/briana-client briana-client/dist/briana-client
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
