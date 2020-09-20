@@ -38,7 +38,6 @@ jobs:
          cd briana-client/
          npm install
          npm run test
-         npm lint
 
       - name: Build briana-client
         run:  |
