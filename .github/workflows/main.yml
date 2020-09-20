@@ -34,19 +34,26 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Install briana-client deps
-        run:  cd briana-client/ && npm install
-       
-      - name: Run briana-client tests
-        run:  npm run test
+        run:  |
+         cd briana-client/
+         npm install
+         npm run test
+         npm lint
 
       - name: Run briana-server tests
-        run:  mvn test
+        run:  |
+         cd briana-server/
+         mvn test
 
       - name: Build briana-client
-        run:  npm run build --prod
+        run:  |
+         cd briana-client/
+         npm run build --prod
 
       - name: Build briana-server
-        run:  mvn package -DskipTests
+        run:  |
+         cd briana-server/
+         mvn package -DskipTests
 
       - name: Copy artifacts to build directory
         run: |
