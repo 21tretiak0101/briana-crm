@@ -1,4 +1,5 @@
 # <img src='https://github.com/21tretiak0101/briana-crm/blob/media/briana.png' height='120' alt='Briana Logo'/>
+<img src="https://github.com/21tretiak0101/briana-crm/workflows/briana-crm/badge.svg?branch=dev"><br>
 
 Open source Client Relationship Management (CRM) application that allows communicating with customers across multiple channels, manage your team with root account and track your sales analytics with reactive diagrams. It can be easily integrated into a sales business to start conveniently managing customer orders.
 
