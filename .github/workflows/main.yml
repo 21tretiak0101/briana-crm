@@ -12,7 +12,7 @@ env:
   SERVER_IMAGE_NAME        : "$ECR_REPOSITORY_URI/briana-server:${{ github.sha }}"
   CLIENT_IMAGE_NAME        : "$ECR_REPOSITORY_URI/briana-client:${{ github.sha }}"
   AWS_REGION_NAME          : "us-east-2"
-  ARTIFACT_NAME            : "briana-crm:{{ github.sha }}.zip"
+  ARTIFACT_NAME            : "briana-crm:{{ github.sha }}"
 
 on:
   push:
