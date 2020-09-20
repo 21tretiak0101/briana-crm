@@ -79,17 +79,14 @@ jobs:
         with:
           name: ${{ env.ARTIFACT_NAME }}
 
-      - name: Unzip artifacts and move them
+      - name: Unzip artifacts and copy them
         run: |
-         ls
          unzip ${{ env.ARTIFACT_NAME }}.zip
-         ls ${{ env.ARTIFACT_NAME }}
          mkdir briana-server/target
          mkdir briana-client/dist
          mkdir briana-client/dist/briana-client
-         ls
-         mv ${{ env.ARTIFACT_NAME }}/${{ env.BRIANA_SERVER_BUILD_NAME }} briana-server/target/
-         mv -r ${{ env.ARTIFACT_NAME }}/briana-client briana-client/dist/briana-client
+         cp ${{ env.ARTIFACT_NAME }}/${{ env.BRIANA_SERVER_BUILD_NAME }} briana-server/target
+         cp -r ${{ env.ARTIFACT_NAME }} briana-client/dist/briana-client
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
