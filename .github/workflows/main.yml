@@ -56,7 +56,7 @@ jobs:
          cp -r briana-client/dist/briana-client ${{ env.ARTIFACT_NAME }}
 
       - name: Archive production artifacts
-        run:  zip -r ${{ env.ARTIFACT_NAME }}.zip build
+        run:  zip -r ${{ env.ARTIFACT_NAME }}.zip ${{ env.ARTIFACT_NAME }}
 
       - name: Upload production artifacts
         uses: actions/upload-artifact@v2
