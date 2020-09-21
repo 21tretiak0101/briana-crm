@@ -88,7 +88,7 @@ jobs:
          cp ${{ env.ARTIFACT_NAME }}/${{ env.BRIANA_SERVER_BUILD_NAME }} briana-server/target
          cp -r ${{ env.ARTIFACT_NAME }} briana-client/dist/briana-client
          echo "Test dist directory files"
-         ls briana-client/dist/brina-client
+         ls briana-client/dist/briana-client
          echo "End test"
          
       - name: Configure AWS credentials
