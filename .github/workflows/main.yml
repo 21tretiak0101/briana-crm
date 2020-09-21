@@ -33,16 +33,16 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v1
       
-      - name: Install briana-client deps
+      - name: Install briana-client dependencies
         run:  |
          cd briana-client/
          npm install
-         npm run test
 
-      - name: Build briana-client
+      - name: Build briana-client and run tests
         run:  |
          cd briana-client/
          npm run build --prod
+         npm run test
 
       - name: Build briana-server and run tests
         run:  |
@@ -58,7 +58,7 @@ jobs:
       - name: Archive production artifacts
         run:  zip -r ${{ env.ARTIFACT_NAME }}.zip ${{ env.ARTIFACT_NAME }}
 
-      - name: Upload production artifacts
+      - name: Upload production artifacts to next step
         uses: actions/upload-artifact@v2
         with:
           name: ${{ env.ARTIFACT_NAME }}
@@ -79,7 +79,7 @@ jobs:
         with:
           name: ${{ env.ARTIFACT_NAME }}
 
-      - name: Unzip artifacts and copy them
+      - name: Unzip artifacts and put them to build directories
         run: |
          unzip ${{ env.ARTIFACT_NAME }}.zip
          mkdir briana-server/target
@@ -87,7 +87,10 @@ jobs:
          mkdir briana-client/dist/briana-client
          cp ${{ env.ARTIFACT_NAME }}/${{ env.BRIANA_SERVER_BUILD_NAME }} briana-server/target
          cp -r ${{ env.ARTIFACT_NAME }} briana-client/dist/briana-client
-
+         echo "Test dist directory files"
+         ls briana-client/dist/brina-client
+         echo "End test"
+         
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
