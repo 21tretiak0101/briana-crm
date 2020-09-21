@@ -53,7 +53,7 @@ jobs:
         run: |
          mkdir ${{ env.ARTIFACT_NAME }}
          cp briana-server/target/${{ env.BRIANA_SERVER_BUILD_NAME }} ${{ env.ARTIFACT_NAME }}
-         cp -r briana-client/dist/briana-client/ ${{ env.ARTIFACT_NAME }}
+         cp -r briana-client/dist/briana-client/* ${{ env.ARTIFACT_NAME }}
 
       - name: Archive production artifacts
         run:  zip -r ${{ env.ARTIFACT_NAME }}.zip ${{ env.ARTIFACT_NAME }}
@@ -86,7 +86,7 @@ jobs:
          mkdir briana-client/dist
          mkdir briana-client/dist/briana-client
          cp ${{ env.ARTIFACT_NAME }}/${{ env.BRIANA_SERVER_BUILD_NAME }} briana-server/target
-         cp -r ${{ env.ARTIFACT_NAME }} briana-client/dist/briana-client
+         cp -r ${{ env.ARTIFACT_NAME }}/* briana-client/dist/briana-client
          echo "Test dist directory files"
          ls briana-client/dist/briana-client
          echo "End test"
