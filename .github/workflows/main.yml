@@ -79,14 +79,14 @@ jobs:
         with:
           name: ${{ env.ARTIFACT_NAME }}
 
-      - name: Unzip artifacts and put them to build directories
+      - name: Unzip artifacts and put move to build directories
         run: |
          unzip ${{ env.ARTIFACT_NAME }}.zip
          mkdir briana-server/target
          mkdir briana-client/dist
          mkdir briana-client/dist/briana-client
-         cp ${{ env.ARTIFACT_NAME }}/${{ env.BRIANA_SERVER_BUILD_NAME }} briana-server/target
-         cp -r ${{ env.ARTIFACT_NAME }}/* briana-client/dist/briana-client
+         mv ${{ env.ARTIFACT_NAME }}/${{ env.BRIANA_SERVER_BUILD_NAME }} briana-server/target
+         mv ${{ env.ARTIFACT_NAME }}/* briana-client/dist/briana-client
          echo "Test dist directory files"
          ls briana-client/dist/briana-client
          echo "End test"
