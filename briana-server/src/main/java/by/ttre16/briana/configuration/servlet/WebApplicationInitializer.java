@@ -1,11 +1,10 @@
 package by.ttre16.briana.configuration.servlet;
 
 import by.ttre16.briana.configuration.root.RootContextConfiguration;
-import org.springframework.web.servlet.support
-        .AbstractAnnotationConfigDispatcherServletInitializer;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import org.springframework.web.servlet.support
+        .AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebApplicationInitializer
         extends AbstractAnnotationConfigDispatcherServletInitializer {
