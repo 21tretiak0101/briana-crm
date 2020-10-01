@@ -1,6 +1,10 @@
+### Project artifacts ###
 target/
 log/
 
 ### IntelliJ IDEA ###
 .idea
 *.iml
+
+### HSQLDB development database ###
+database/
