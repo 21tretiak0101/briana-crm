@@ -11,11 +11,8 @@ import org.springframework.core.env.Environment;
 
 import java.util.Properties;
 
-
 /**
  * Production specific configuration - creates a postgresql datasource.
- *
- * Set -Dspring.profiles.active=production to build project with this config.
  *
  * @author Ilia Tretiak
  * @version 1.0

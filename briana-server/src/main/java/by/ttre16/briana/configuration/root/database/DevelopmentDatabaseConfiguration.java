@@ -15,8 +15,6 @@ import java.util.Properties;
  * Testing specific configuration - creates an in-memory hsqldb datasource
  * and inserts some test data on the database.
  *
- * Set -Dspring.profiles.active=development to build project with this config.
- *
  * @author Ilia Tretiak
  * @version 1.0
  * @see ProductionDatabaseConfiguration
