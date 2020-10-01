@@ -1,7 +1,6 @@
 package by.ttre16.briana.configuration.servlet;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -11,9 +10,16 @@ import org.springframework.http.converter.json
 
 import java.util.List;
 
+/**
+ * Spring MVC servlet context configuration.
+ * The beans from this context are visible only inside the servlet context.
+ *
+ * @author Ilia Tretiak
+ * @version 1.0
+ */
+
 @Configuration
 @EnableWebMvc
-@ComponentScan({"by.ttre16.briana.controller"})
 public class ServletContextConfiguration implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(

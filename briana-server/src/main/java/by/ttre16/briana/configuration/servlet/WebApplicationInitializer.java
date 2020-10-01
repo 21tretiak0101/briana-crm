@@ -6,6 +6,14 @@ import javax.servlet.ServletException;
 import org.springframework.web.servlet.support
         .AbstractAnnotationConfigDispatcherServletInitializer;
 
+/**
+ * The replacement for most of the content of web.xml.
+ * It sets up the root and the servlet context configurations.
+ *
+ * @author Ilia Tretiak
+ * @version 1.0
+ */
+
 public class WebApplicationInitializer
         extends AbstractAnnotationConfigDispatcherServletInitializer {
 
