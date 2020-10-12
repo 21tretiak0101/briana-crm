@@ -15,7 +15,7 @@ env:
   ARTIFACT_NAME            : "briana-crm-artifact"
 
 on:
-  push:
+  pull_request:
     branches: [dev]
 
 jobs:
