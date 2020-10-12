@@ -5,7 +5,7 @@
 #
 # ---------------------------------
 
-name: briana-crm
+name: build
 env:
   BRIANA_SERVER_BUILD_NAME : "briana-server.war"
   ECR_REPOSITORY_URI       : "777491145948.dkr.ecr.us-east-2.amazonaws.com"
