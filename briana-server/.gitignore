@@ -7,4 +7,4 @@ log/
 *.iml
 
 ### HSQLDB development database ###
-database/
+hsqldb/
