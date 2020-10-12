@@ -5,8 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 
 @Setter
 @Getter
@@ -18,7 +19,7 @@ public class AbstractUser extends AbstractDescribedEntity {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne
-    @Column(name = "phone")
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 }
