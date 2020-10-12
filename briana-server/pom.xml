@@ -67,10 +67,6 @@
       <id>development</id>
       <activation>
         <activeByDefault>true</activeByDefault>
-        <property>
-          <name>spring.profiles.active</name>
-          <value>development</value>
-        </property>
       </activation>
       <properties>
         <flyway.configFiles>
@@ -89,13 +85,6 @@
     <!--Production profile-->
     <profile>
       <id>production</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-        <property>
-          <name>spring.profiles.active</name>
-          <value>production</value>
-        </property>
-      </activation>
       <properties>
         <flyway.configFiles>
           src/main/resources/conf/flyway.production.conf
