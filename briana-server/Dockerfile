@@ -1,4 +1,6 @@
-FROM tomcat:alpine
+FROM tomcat:9-jdk11
+
+ENV JAVA_OPTS="-Dspring.profiles.active=development"
 
 RUN rm -rf /usr/local/tomcat/webapps/*
 
