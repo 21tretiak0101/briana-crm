@@ -12,10 +12,10 @@ import java.util.List;
 @Getter
 @Setter
 public class Position extends AbstractDescribedEntity {
-    @OneToMany
-    @JoinTable(
+    @ElementCollection
+    @CollectionTable(
             name = "positions_permissions",
-            joinColumns = @JoinColumn(name = "position_id")
-    )
-    private List<Permission> permissions;
+            joinColumns = @JoinColumn(name = "position_id"))
+    @Column(name = "permission")
+    private List<String> permissions;
 }

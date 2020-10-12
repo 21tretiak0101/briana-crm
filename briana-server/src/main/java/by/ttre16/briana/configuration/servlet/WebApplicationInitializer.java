@@ -1,10 +1,10 @@
 package by.ttre16.briana.configuration.servlet;
 
 import by.ttre16.briana.configuration.root.RootContextConfiguration;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import org.springframework.web.servlet.support
-        .AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
  * The replacement for most of the content of web.xml.
@@ -20,6 +20,10 @@ public class WebApplicationInitializer
     @Override
     public void onStartup(ServletContext context) throws ServletException {
         super.onStartup(context);
+        context.setInitParameter(
+                "spring.profiles.default",
+                "development"
+        );
     }
 
     @Override

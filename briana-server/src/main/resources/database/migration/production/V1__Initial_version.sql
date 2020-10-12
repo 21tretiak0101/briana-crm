@@ -45,6 +45,7 @@ CREATE TABLE employees (
     registered      TIMESTAMP DEFAULT now()::timestamp(0) NOT NULL,
     enabled         BOOLEAN DEFAULT TRUE,
     description     VARCHAR NOT NULL,
+    address_id      INTEGER NOT NULL,
     password        VARCHAR NOT NULL,
     photo_path      VARCHAR NOT NULL,
     position_id     INTEGER NOT NULL,
@@ -58,7 +59,7 @@ CREATE UNIQUE INDEX employees_unique_email_phone_idx ON clients(email, phone);
 CREATE TABLE events (
     id              INTEGER PRIMARY KEY DEFAULT nextval('briana_sequence'),
     message         VARCHAR NOT NULL,
-    type            VARCHAR NOT NULL,
+    type            VARCHAR(255) NOT NULL,
     published       TIMESTAMP DEFAULT now()::timestamp(0) NOT NULL,
     publisher_id    INTEGER NOT NULL,
     organization_id INTEGER NOT NULL,
@@ -66,18 +67,11 @@ CREATE TABLE events (
     FOREIGN KEY (publisher_id) REFERENCES employees(id)
 );
 
-CREATE TABLE permissions (
-    id              INTEGER PRIMARY KEY DEFAULT nextval('briana_sequence'),
-    name            VARCHAR NOT NULL,
-    organization_id INTEGER NOT NULL,
-    FOREIGN KEY (organization_id) REFERENCES organizations(id)
-);
-
 CREATE TABLE positions_permissions (
     position_id   INTEGER NOT NULL,
-    permission_id INTEGER NOT NULL,
+    permission    VARCHAR NOT NULL,
     FOREIGN KEY (position_id) REFERENCES positions(id),
-    FOREIGN KEY (permission_id) REFERENCES permissions(id)
+    CONSTRAINT unique_position_id_permission UNIQUE (position_id, permission)
 );
 
 CREATE TABLE categories (
@@ -103,13 +97,25 @@ CREATE TABLE products (
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
-CREATE UNIQUE INDEX products_unique_name_idx ON products(name);
+CREATE UNIQUE INDEX products_unique_name_organization_id_idx ON products(name, organization_id);
 
 CREATE TABLE orders (
     id              INTEGER PRIMARY KEY DEFAULT nextval('briana_sequence'),
     created         TIMESTAMP DEFAULT now()::timestamp(0) NOT NULL,
-    client_id       INTEGER NOT NULL,
     organization_id INTEGER NOT NULL,
-    FOREIGN KEY (organization_id) REFERENCES organizations(id),
-    FOREIGN KEY (client_id) REFERENCES clients(id)
+    FOREIGN KEY (organization_id) REFERENCES organizations(id)
+);
+
+CREATE TABLE orders_products (
+    order_id   INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+CREATE TABLE clients_orders (
+    client_id INTEGER NOT NULL,
+    order_id  INTEGER NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES clients(id),
+    FOREIGN KEY (order_id) REFERENCES orders(id)
 );

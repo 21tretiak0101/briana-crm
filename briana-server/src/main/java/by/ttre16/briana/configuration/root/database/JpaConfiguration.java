@@ -1,7 +1,6 @@
 package by.ttre16.briana.configuration.root.database;
 
 import by.ttre16.briana.annotation.ProfileProperties;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -29,7 +28,6 @@ import static org.hibernate.cfg.AvailableSettings.*;
  */
 
 @Configuration
-@RequiredArgsConstructor
 @PropertySource("classpath:jpa/hibernate.properties")
 @EnableTransactionManagement
 public class JpaConfiguration {
@@ -38,8 +36,16 @@ public class JpaConfiguration {
 
     private final DataSource dataSource;
 
-    @ProfileProperties
     private final Properties properties;
+
+    public JpaConfiguration(
+            Environment environment,
+            DataSource dataSource,
+            @ProfileProperties Properties properties) {
+        this.environment = environment;
+        this.dataSource = dataSource;
+        this.properties = properties;
+    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
