@@ -22,11 +22,11 @@
         </encoder>
     </appender>
 
-    <logger name="result" level="INFO" additivity="false">
+    <logger name="result" level="WARN" additivity="false">
         <appender-ref ref="result"/>
     </logger>
 
-    <logger name="by.ttre16.briana" level="DEBUG"/>
+    <logger name="by.ttre16.briana" level="WARN"/>
     <logger name="org.springframework.web.servlet" level="DEBUG"/>
 
     <root level="WARN">
