@@ -1,16 +1,22 @@
 package by.ttre16.briana.repository;
 
 import by.ttre16.briana.AbstractTest;
+import by.ttre16.briana.assertion.RecursiveAssert;
 import by.ttre16.briana.entity.Category;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Transactional
+import static by.ttre16.briana.data.CategoryTestData.CATEGORIES;
+import static by.ttre16.briana.data.CategoryTestData.CATEGORY18_ID;
+import static by.ttre16.briana.data.OrganizationTestData.ORGANIZATION1_ID;
+import static by.ttre16.briana.data.OrganizationTestData.ORGANIZATIONS;
+
 public class CategoryRepositoryTest extends AbstractTest {
     @PersistenceContext
     private EntityManager entityManager;
@@ -19,39 +25,35 @@ public class CategoryRepositoryTest extends AbstractTest {
     private CategoryRepository categoryRepository;
 
     @Test
+    @Transactional
     public void save() {
         Category category = new Category();
-        category.setName("test category");
-        Category savedCategory = categoryRepository.save(category);
-        Assert.assertNotNull(savedCategory.getId());
-        Assert.assertEquals(
-            savedCategory.getId(),
-            entityManager.find(Category.class, savedCategory.getId()).getId()
+        category.setOrganization(ORGANIZATIONS.get(ORGANIZATION1_ID));
+        category.setDescription("test:description");
+        category.setImagePath("path/to/image/100");
+
+        Category saved = categoryRepository.save(category);
+
+        Assert.assertNotNull(saved);
+        RecursiveAssert.assertMatch(
+                saved,
+                entityManager.find(Category.class, saved.getId())
         );
     }
 
     @Test
+    @Transactional
     public void update() {
-        Category category = entityManager.find(Category.class, 1);
-        String updatedName = "updated_category_name";
-        category.setName(updatedName);
-        Category updated = categoryRepository.update(category);
-        Assert.assertEquals(
-                updated.getName(),
-                updatedName
+        Category category = new Category();
+        BeanUtils.copyProperties(
+                CATEGORIES.get(CATEGORY18_ID),
+                category
         );
-    }
 
-    @Test
-    public void delete() {
-        Category category = entityManager.find(Category.class, 1);
-        Assert.assertTrue(
-                categoryRepository.delete(
-                        category.getId(),
-                        category.getOrganization().getId()
-                )
+        Category updated = categoryRepository.update(category);
+        RecursiveAssert.assertMatch(
+                updated,
+                entityManager.find(Category.class, updated.getId())
         );
-        entityManager.clear();
-        Assert.assertNull(entityManager.find(Category.class, 1));
     }
 }
