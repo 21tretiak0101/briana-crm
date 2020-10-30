@@ -1,6 +1,5 @@
 package by.ttre16.briana.repository;
 
-import by.ttre16.briana.AbstractTest;
 import by.ttre16.briana.assertion.RecursiveAssert;
 import by.ttre16.briana.entity.Organization;
 import org.junit.Assert;
@@ -14,7 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import static by.ttre16.briana.data.OrganizationTestData.*;
 
-public class OrganizationRepositoryTest extends AbstractTest {
+public class OrganizationRepositoryTest extends AbstractRepositoryTest {
     @PersistenceContext
     private EntityManager entityManager;
 

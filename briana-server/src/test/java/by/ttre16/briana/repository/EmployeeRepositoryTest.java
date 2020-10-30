@@ -1,6 +1,5 @@
 package by.ttre16.briana.repository;
 
-import by.ttre16.briana.AbstractTest;
 import by.ttre16.briana.assertion.RecursiveAssert;
 import by.ttre16.briana.entity.Employee;
 import org.junit.Assert;
@@ -23,7 +22,7 @@ import static by.ttre16.briana.data.OrganizationTestData.ORGANIZATIONS;
 import static by.ttre16.briana.data.PositionTestData.POSITION3_ID;
 import static by.ttre16.briana.data.PositionTestData.POSITIONS;
 
-public class EmployeeRepositoryTest extends AbstractTest {
+public class EmployeeRepositoryTest extends AbstractRepositoryTest {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -101,6 +100,21 @@ public class EmployeeRepositoryTest extends AbstractTest {
         RecursiveAssert.assertMatch(
                 expected,
                 employeeRepository.getAll(ORGANIZATION1_ID)
+        );
+    }
+
+    @Test
+    public void get() {
+        Employee expected = EMPLOYEES.get(EMPLOYEE13_ID);
+        Employee actual = employeeRepository.get(
+                expected.getId(),
+                expected.getOrganization().getId()
+        )
+                .orElseThrow(AssertionError::new);
+
+        RecursiveAssert.assertMatch(
+                expected,
+                actual
         );
     }
 }

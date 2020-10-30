@@ -1,6 +1,5 @@
 package by.ttre16.briana.repository;
 
-import by.ttre16.briana.AbstractTest;
 import by.ttre16.briana.assertion.RecursiveAssert;
 import by.ttre16.briana.entity.EmployeePermission;
 import by.ttre16.briana.entity.Position;
@@ -19,7 +18,7 @@ import static by.ttre16.briana.data.OrganizationTestData.ORGANIZATIONS;
 import static by.ttre16.briana.data.PositionTestData.POSITION3_ID;
 import static by.ttre16.briana.data.PositionTestData.POSITIONS;
 
-public class PositionRepositoryTest extends AbstractTest {
+public class PositionRepositoryTest extends AbstractRepositoryTest {
     @PersistenceContext
     private EntityManager entityManager;
 

@@ -1,6 +1,5 @@
 package by.ttre16.briana.repository;
 
-import by.ttre16.briana.AbstractTest;
 import by.ttre16.briana.assertion.RecursiveAssert;
 import by.ttre16.briana.entity.Client;
 import org.junit.Assert;
@@ -21,7 +20,7 @@ import static by.ttre16.briana.data.ClientTestData.*;
 import static by.ttre16.briana.data.OrganizationTestData.ORGANIZATION1_ID;
 import static by.ttre16.briana.data.OrganizationTestData.ORGANIZATIONS;
 
-public class ClientRepositoryTest extends AbstractTest {
+public class ClientRepositoryTest extends AbstractRepositoryTest {
     @Autowired
     private ClientRepository clientRepository;
 
