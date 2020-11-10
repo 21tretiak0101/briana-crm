@@ -13,8 +13,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.BeanUtils;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 
 import static by.ttre16.briana.data.EmployeeTestData.*;
@@ -39,25 +41,32 @@ public class EmployeeServiceTest extends AbstractTest {
     @Mock
     private EmployeeRepository employeeRepository;
 
-    private final Employee employee = EMPLOYEES.get(EMPLOYEE14_ID);
+    private final Employee employee = new Employee();
 
     private final Employee publisher = EMPLOYEES.get(EMPLOYEE13_ID);
 
     private final Integer organizationId = publisher.getOrganization().getId();
 
     @Before
-    public void setupMock() {
+    public void setupMocks() {
         employeeService = new EmployeeService(
                 imageService,
                 employeeRepository,
                 eventService,
                 employeeMapper
         );
+
+        BeanUtils.copyProperties(EMPLOYEES.get(EMPLOYEE14_ID), this.employee);
+
         when(employeeMapper.toEntity(any())).thenReturn(employee);
 
         when(employeeRepository.get(anyInt(), anyInt())).then(args -> {
+            Integer employeeId = args.getArgument(0);
+            if (!List.of(publisher.getId(), employee.getId()).contains(employeeId)) {
+                return Optional.empty();
+            }
             Integer organizationId = args.getArgument(1);
-            return organizationId.equals(employee.getOrganization().getId())
+            return organizationId.equals(this.organizationId)
                     ? Optional.of(employee)
                     : Optional.empty();
         });
@@ -79,12 +88,15 @@ public class EmployeeServiceTest extends AbstractTest {
         when(employeeRepository.save(any())).thenReturn(employee);
         employeeService.create(
                 new EmployeeTo(),
-                publisher.getOrganization().getId(),
+                organizationId,
                 new MockMultipartFile("test", new byte[]{}),
                 publisher.getId()
         );
         verify(employeeRepository).save(any());
-        verify(imageService).upload(any(), eq("employee:" + employee.getEmail()));
+        verify(imageService).upload(
+                any(),
+                eq("employee:" + employee.getEmail())
+        );
     }
 
     @Test
@@ -115,10 +127,25 @@ public class EmployeeServiceTest extends AbstractTest {
     @Test
     public void update() {
         EmployeeTo employeeTo = new EmployeeTo();
-        employeeTo.setId(1);
+        employeeTo.setId(employee.getId());
         when(employeeRepository.update(any())).thenReturn(employee);
         employeeService.update(employeeTo, organizationId, publisher.getId());
         verify(employeeMapper).copyProperties(employee, employeeTo);
         verify(employeeRepository).update(any());
+    }
+
+    @Test
+    public void updatePhoto() {
+        employeeService.updatePhoto(
+                employee.getId(),
+                organizationId,
+                new MockMultipartFile("test", new byte[]{}),
+                publisher.getId()
+        );
+        verify(imageService).delete(anyString());
+        verify(imageService).upload(
+                any(),
+                eq("employee:" + employee.getEmail())
+        );
     }
 }
