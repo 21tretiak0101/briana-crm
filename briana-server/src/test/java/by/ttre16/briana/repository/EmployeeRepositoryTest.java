@@ -104,6 +104,7 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
+    @Transactional(readOnly = true)
     public void get() {
         Employee expected = EMPLOYEES.get(EMPLOYEE13_ID);
         Employee actual = employeeRepository.get(
