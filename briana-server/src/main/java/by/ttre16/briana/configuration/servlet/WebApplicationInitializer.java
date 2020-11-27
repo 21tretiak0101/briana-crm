@@ -1,6 +1,7 @@
 package by.ttre16.briana.configuration.servlet;
 
 import by.ttre16.briana.configuration.root.RootContextConfiguration;
+import by.ttre16.briana.configuration.root.security.SecurityConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletContext;
@@ -33,7 +34,10 @@ public class WebApplicationInitializer
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{RootContextConfiguration.class};
+        return new Class<?>[]{
+                RootContextConfiguration.class,
+                SecurityConfiguration.class
+        };
     }
 
     @Override

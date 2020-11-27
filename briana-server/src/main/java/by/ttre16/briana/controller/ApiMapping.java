@@ -9,6 +9,8 @@ public class ApiMapping {
 
     public static final String CLIENT_REST_URL = API + VERSION + "/client";
 
+    public static final String ORGANIZATION_REST_URL = API + VERSION + "/org";
+
     public static final String OWNER_REST_URL = API + VERSION + "/owner";
 
     public static final String POSITION_REST_URL = API + VERSION + "/position";
@@ -19,4 +21,5 @@ public class ApiMapping {
 
     public static final String PRODUCT_REST_URL = API + VERSION + "/product";
 
+    public static final String AUTH_URL = API + VERSION + "/auth";
 }
