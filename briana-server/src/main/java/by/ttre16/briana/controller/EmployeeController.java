@@ -1,16 +1,14 @@
 package by.ttre16.briana.controller;
 
 import by.ttre16.briana.annotation.Authenticated;
-import by.ttre16.briana.dto.EmployeeTo;
-import by.ttre16.briana.dto.mapper.EmployeeMapper;
-import by.ttre16.briana.entity.Employee;
 import by.ttre16.briana.security.AuthenticatedEmployee;
 import by.ttre16.briana.service.EmployeeService;
-import by.ttre16.briana.service.ImageService;
+import by.ttre16.briana.transport.EmployeeTo;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,38 +23,34 @@ import static org.springframework.http.MediaType.*;
 @RestController
 @RequestMapping(EMPLOYEE_REST_URL)
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('employee:write')")
 public class EmployeeController {
     private final EmployeeService employeeService;
-    private final EmployeeMapper employeeMapper;
-    private final ImageService imageService;
     private static final Logger log = getLogger(EmployeeController.class);
 
     @GetMapping(
             value = "/{id}",
-            consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE
     )
+    @PreAuthorize("hasAuthority('employee:read')")
     public ResponseEntity<EmployeeTo> get(
             @PathVariable Integer id,
             @Authenticated AuthenticatedEmployee authenticated) {
         log.info("GET request: get({})", id);
-        Employee employee = employeeService.get(
-                id,
-                authenticated.getOrganizationId()
-        );
-        EmployeeTo employeeTo = employeeMapper.toDto(employee);
-        employeeTo.setImage(
-                imageService.download(employee.getPhotoPath())
-        );
         return ResponseEntity.ok()
-                .body(employeeTo);
+                .body(
+                        employeeService.getDto(
+                                id,
+                                authenticated.getOrganizationId()
+                        )
+                );
     }
 
     @GetMapping(
             value = "/{id}/image",
-            consumes = APPLICATION_JSON_VALUE,
             produces = {IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE}
     )
+    @PreAuthorize("hasAuthority('employee:read')")
     public ResponseEntity<byte[]> getPhoto(
             @PathVariable Integer id,
             @Authenticated AuthenticatedEmployee authenticated) {
@@ -80,8 +74,8 @@ public class EmployeeController {
             @RequestParam("file") MultipartFile file,
             @Authenticated AuthenticatedEmployee authenticated) {
         log.info("POST request: create()");
-        Employee created = employeeService.create(
-                employeeMapper.toEntity(employeeTo),
+        EmployeeTo created = employeeService.create(
+                employeeTo,
                 authenticated.getOrganizationId(),
                 file,
                 authenticated.getId()
@@ -91,7 +85,7 @@ public class EmployeeController {
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity
                 .created(resourceUri)
-                .body(employeeMapper.toDto(created));
+                .body(created);
     }
 
     @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE)
@@ -101,25 +95,23 @@ public class EmployeeController {
             @RequestBody EmployeeTo employeeTo,
             @Authenticated AuthenticatedEmployee authenticated) {
         log.info("PUT request: update({})", id);
-        Employee employee = employeeMapper.toEntity(employeeTo);
-        assureThatIdConsistent(employee, id);
-
+        assureThatIdConsistent(employeeTo, id);
         employeeService.update(
-                employee,
+                employeeTo,
                 authenticated.getOrganizationId(),
                 authenticated.getId()
         );
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/{employeeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updatePhoto(
-            @PathVariable("id") Integer id,
+            @PathVariable Integer employeeId,
             @RequestParam("file") MultipartFile file,
             @Authenticated AuthenticatedEmployee authenticated) {
-        log.info("PUT request: updatePhoto({})", id);
+        log.info("PUT request: updatePhoto({})", employeeId);
         employeeService.updatePhoto(
-                id,
+                employeeId,
                 authenticated.getOrganizationId(),
                 file,
                 authenticated.getId()
