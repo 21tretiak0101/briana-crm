@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Optional;
 
 /**
  * The repository class for {@link Category} entity.
@@ -27,5 +28,16 @@ public class CategoryRepository {
 
     public Category update(Category category) {
         return entityManager.merge(category);
+    }
+
+    public Optional<Category> get(Integer id, Integer organizationId) {
+        return entityManager.createNamedQuery(
+                Category.GET_BY_ID,
+                Category.class
+        )
+                .setParameter("id", id)
+                .setParameter("organizationId", organizationId)
+                .getResultList().stream()
+                .findFirst();
     }
 }

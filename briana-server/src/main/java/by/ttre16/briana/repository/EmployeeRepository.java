@@ -27,17 +27,27 @@ public class EmployeeRepository {
         return employee;
     }
 
+    public Optional<Employee> get(Integer id, Integer organizationId) {
+        return entityManager.createNamedQuery(
+                Employee.GET_BY_ID,
+                Employee.class
+        )
+                .setParameter("id", id)
+                .setParameter("organizationId", organizationId)
+                .getResultList().stream()
+                .findFirst();
+    }
+
     public Employee update(Employee employee) {
         return entityManager.merge(employee);
     }
 
-    public Optional<Employee> getByEmail(String email, Integer organizationId) {
+    public Optional<Employee> getByEmail(String email) {
         return entityManager.createNamedQuery(
                 Employee.GET_BY_EMAIL,
                 Employee.class
         )
                 .setParameter("email", email)
-                .setParameter("organizationId", organizationId)
                 .getResultList().stream()
                 .findFirst();
     }
