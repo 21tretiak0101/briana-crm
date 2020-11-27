@@ -3,6 +3,10 @@ package by.ttre16.briana.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @RequiredArgsConstructor
 public enum EmployeePermission {
@@ -20,4 +24,10 @@ public enum EmployeePermission {
     PRODUCT_WRITE("product:write");
 
     private final String name;
+
+    public static List<String> getAll() {
+        return Arrays.stream(values())
+                .map(EmployeePermission::getName)
+                .collect(Collectors.toList());
+    }
 }
