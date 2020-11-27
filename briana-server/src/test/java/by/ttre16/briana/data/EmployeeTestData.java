@@ -1,6 +1,11 @@
 package by.ttre16.briana.data;
 
+import by.ttre16.briana.entity.Address;
 import by.ttre16.briana.entity.Employee;
+import by.ttre16.briana.entity.Position;
+import by.ttre16.briana.transport.AddressTo;
+import by.ttre16.briana.transport.EmployeeTo;
+import by.ttre16.briana.transport.PositionTo;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -89,5 +94,85 @@ public class EmployeeTestData {
         employee14.setOrganization(ORGANIZATIONS.get(ORGANIZATION2_ID));
 
         EMPLOYEES.put(EMPLOYEE14_ID, employee14);
+    }
+
+    public static EmployeeTo getNewTo() {
+        EmployeeTo employeeTo = new EmployeeTo();
+
+        Position testPosition = POSITIONS.get(POSITION3_ID);
+        PositionTo positionTo = new PositionTo();
+
+        positionTo.setId(testPosition.getId());
+        positionTo.setName(testPosition.getName());
+        positionTo.setDescription(testPosition.getDescription());
+        positionTo.setPermissions(positionTo.getPermissions());
+
+        AddressTo addressTo = new AddressTo();
+        Address testAddress = ADDRESSES.get(ADDRESS7_ID);
+
+        addressTo.setCountry(testAddress.getCountry());
+        addressTo.setCity(testAddress.getCity());
+        addressTo.setPostcode(testAddress.getPostcode());
+
+        employeeTo.setName("new:name");
+        employeeTo.setEmail("new.employee@gmail.com");
+        employeeTo.setPhone("332-22-12");
+        employeeTo.setPassword("new-password");
+        employeeTo.setPosition(positionTo);
+        employeeTo.setAddress(addressTo);
+        employeeTo.setDescription("new:employee:description");
+        employeeTo.setOrganizationId(testPosition.getOrganization().getId());
+        return employeeTo;
+    }
+
+    public static Employee getNewFrom(EmployeeTo employeeTo) {
+        Employee employee = new Employee();
+        Position employeePosition = POSITIONS.get(POSITION3_ID);
+
+        employee.setPosition(employeePosition);
+        employee.setOrganization(employeePosition.getOrganization());
+
+        employee.setName(employeeTo.getName());
+        employee.setPhone(employeeTo.getPhone());
+        employee.setEmail(employeeTo.getEmail());
+        employee.setRegistered(LocalDate.now());
+        employee.setEnabled(true);
+        employee.setDescription(employeeTo.getDescription());
+        employee.setAddress(ADDRESSES.get(ADDRESS7_ID));
+        employee.setPassword(
+                "$2y$10$52.OFyDMdNBL6pc8ud3mF.o/ZwISHJZXWWNeqizy4juQO/O6X2CPi"
+        );
+
+        return employee;
+    }
+
+    public static EmployeeTo getFrom(Employee employee) {
+        EmployeeTo employeeTo = new EmployeeTo();
+
+        Position position = employee.getPosition();
+        PositionTo positionTo = new PositionTo();
+
+        positionTo.setId(position.getId());
+        positionTo.setName(position.getName());
+        positionTo.setDescription(position.getDescription());
+        positionTo.setPermissions(positionTo.getPermissions());
+
+        AddressTo addressTo = new AddressTo();
+        Address address = employee.getAddress();
+
+        addressTo.setCountry(address.getCountry());
+        addressTo.setCity(address.getCity());
+        addressTo.setPostcode(address.getPostcode());
+
+        employeeTo.setName(employee.getName());
+        employeeTo.setEmail(employee.getEmail());
+        employeeTo.setPhone(employeeTo.getPhone());
+        employeeTo.setPassword(employee.getPassword());
+        employeeTo.setPosition(positionTo);
+        employeeTo.setAddress(addressTo);
+        employeeTo.setDescription(employee.getDescription());
+        employeeTo.setOrganizationId(employee.getOrganization().getId());
+
+        return employeeTo;
     }
 }

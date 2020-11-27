@@ -1,6 +1,5 @@
 package by.ttre16.briana.service;
 
-import by.ttre16.briana.AbstractTest;
 import by.ttre16.briana.assertion.RecursiveAssert;
 import by.ttre16.briana.entity.Employee;
 import by.ttre16.briana.exception.EntityNotFoundException;
@@ -26,7 +25,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EmployeeServiceTest extends AbstractTest {
+public class EmployeeServiceTest {
     private EmployeeService employeeService;
 
     @Mock

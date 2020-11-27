@@ -78,8 +78,7 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest {
         Employee expected = EMPLOYEES.get(EMPLOYEE12_ID);
 
         employeeRepository.getByEmail(
-                expected.getEmail(),
-                expected.getOrganization().getId()
+                expected.getEmail()
         ).ifPresent(employee -> RecursiveAssert.assertMatch(
                 expected,
                 employee

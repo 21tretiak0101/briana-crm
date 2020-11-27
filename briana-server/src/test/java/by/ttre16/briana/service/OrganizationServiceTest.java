@@ -32,9 +32,7 @@ public class OrganizationServiceTest extends AbstractServiceTest {
                 organizationRepository,
                 organizationMapper
         );
-
         organization = new Organization();
-
         when(organizationRepository.get(organizationId))
                 .thenReturn(Optional.of(organization));
     }
