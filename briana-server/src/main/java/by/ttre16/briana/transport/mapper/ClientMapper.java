@@ -2,6 +2,8 @@ package by.ttre16.briana.transport.mapper;
 
 import by.ttre16.briana.entity.Client;
 import by.ttre16.briana.transport.ClientTo;
+import by.ttre16.briana.transport.mapper.post.AddressPostMapper;
+import by.ttre16.briana.transport.mapper.post.OrganizationPostMapper;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,8 +14,8 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 @Mapper(
         componentModel = "spring",
         uses = {
-                OrganizationHelper.class,
-                AddressHelper.class
+                OrganizationPostMapper.class,
+                AddressPostMapper.class
         }
 )
 public interface ClientMapper {
