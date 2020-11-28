@@ -1,6 +1,5 @@
 package by.ttre16.briana.repository;
 
-import by.ttre16.briana.AbstractTest;
 import by.ttre16.briana.assertion.RecursiveAssert;
 import by.ttre16.briana.entity.Category;
 import org.junit.Assert;
@@ -17,7 +16,7 @@ import static by.ttre16.briana.data.CategoryTestData.CATEGORY18_ID;
 import static by.ttre16.briana.data.OrganizationTestData.ORGANIZATION1_ID;
 import static by.ttre16.briana.data.OrganizationTestData.ORGANIZATIONS;
 
-public class CategoryRepositoryTest extends AbstractTest {
+public class CategoryRepositoryTest extends AbstractRepositoryTest {
     @PersistenceContext
     private EntityManager entityManager;
 

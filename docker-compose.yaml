@@ -1,12 +1,11 @@
-version: "3"
+version: "3.8"
 
 services:
   briana-client:
     container_name: briana-client
-    build: ./briana-client/
+    build:
+      context: ./briana-client/
     restart: always
-    links:
-      - briana-server
     expose:
       - "80"
     ports:
@@ -14,7 +13,12 @@ services:
 
   briana-server:
     container_name: briana-server
-    build: ./briana-server/
+    build:
+      context: ./briana-server/
+      args:
+        - aws_access_key
+        - aws_secret_key
+        - jwt_private_key
     restart: always
     expose:
       - "8080"

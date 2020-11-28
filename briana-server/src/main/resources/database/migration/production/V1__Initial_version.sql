@@ -10,7 +10,7 @@ CREATE TABLE addresses (
 CREATE TABLE organizations (
    id          INTEGER PRIMARY KEY DEFAULT nextval('briana_sequence'),
    name        VARCHAR NOT NULL,
-   description VARCHAR NOT NULL,
+   description VARCHAR,
    currency    VARCHAR NOT NULL
 );
 
@@ -19,7 +19,7 @@ CREATE TABLE clients (
     name            VARCHAR NOT NULL,
     phone           VARCHAR NOT NULL,
     email           VARCHAR NOT NULL,
-    description     VARCHAR NOT NULL,
+    description     VARCHAR,
     address_id      INTEGER NOT NULL,
     created         TIMESTAMP DEFAULT now()::timestamp(0) NOT NULL,
     organization_id INTEGER NOT NULL,
@@ -32,7 +32,7 @@ CREATE INDEX clients_unique_email_phone_idx ON clients(email, phone);
 CREATE TABLE positions (
     id              INTEGER PRIMARY KEY DEFAULT nextval('briana_sequence'),
     name            VARCHAR NOT NULL,
-    description     VARCHAR NOT NULL,
+    description     VARCHAR,
     organization_id INTEGER NOT NULL,
     FOREIGN KEY (organization_id) REFERENCES organizations(id)
 );
@@ -44,14 +44,15 @@ CREATE TABLE employees (
     email           VARCHAR NOT NULL,
     registered      TIMESTAMP DEFAULT now()::timestamp(0) NOT NULL,
     enabled         BOOLEAN DEFAULT TRUE,
-    description     VARCHAR NOT NULL,
-    address_id      INTEGER NOT NULL,
+    description     VARCHAR,
+    address_id      INTEGER,
     password        VARCHAR NOT NULL,
     photo_path      VARCHAR NOT NULL,
     position_id     INTEGER NOT NULL,
     organization_id INTEGER NOT NULL,
     FOREIGN KEY (position_id) REFERENCES positions(id),
-    FOREIGN KEY (organization_id) REFERENCES organizations(id)
+    FOREIGN KEY (organization_id) REFERENCES organizations(id),
+    FOREIGN KEY (address_id) REFERENCES addresses(id)
 );
 
 CREATE UNIQUE INDEX employees_unique_email_phone_idx ON clients(email, phone);
@@ -77,7 +78,7 @@ CREATE TABLE positions_permissions (
 CREATE TABLE categories (
     id              INTEGER PRIMARY KEY DEFAULT nextval('briana_sequence'),
     name            VARCHAR NOT NULL,
-    description     VARCHAR NOT NULL,
+    description     VARCHAR,
     image_path      VARCHAR NOT NULL,
     organization_id INTEGER NOT NULL,
     FOREIGN KEY (organization_id) REFERENCES organizations(id)
@@ -88,7 +89,7 @@ CREATE UNIQUE INDEX categories_unique_name_idx ON categories(name);
 CREATE TABLE products (
     id              INTEGER PRIMARY KEY DEFAULT nextval('briana_sequence'),
     name            VARCHAR NOT NULL,
-    description     VARCHAR NOT NULL,
+    description     VARCHAR,
     price           NUMERIC(15, 2) NOT NULL,
     image_path      VARCHAR NOT NULL,
     category_id     INTEGER NOT NULL,

@@ -1,6 +1,7 @@
 package by.ttre16.briana.data;
 
 import by.ttre16.briana.entity.Employee;
+import by.ttre16.briana.entity.Position;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -89,5 +90,26 @@ public class EmployeeTestData {
         employee14.setOrganization(ORGANIZATIONS.get(ORGANIZATION2_ID));
 
         EMPLOYEES.put(EMPLOYEE14_ID, employee14);
+    }
+
+    public static Employee getNew() {
+        Employee employee = new Employee();
+        Position employeePosition = POSITIONS.get(POSITION3_ID);
+
+        employee.setPosition(employeePosition);
+        employee.setOrganization(employeePosition.getOrganization());
+
+        employee.setName("test:employee");
+        employee.setPhone("232-322-123");
+        employee.setEmail("test@gmail.com");
+        employee.setRegistered(LocalDate.now());
+        employee.setEnabled(true);
+        employee.setDescription("test:description");
+        employee.setAddress(ADDRESSES.get(ADDRESS7_ID));
+        employee.setPassword(
+                "$2y$10$52.OFyDMdNBL6pc8ud3mF.o/ZwISHJZXWWNeqizy4juQO/O6X2CPi"
+        );
+
+        return employee;
     }
 }

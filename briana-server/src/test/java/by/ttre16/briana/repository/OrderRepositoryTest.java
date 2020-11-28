@@ -1,6 +1,5 @@
 package by.ttre16.briana.repository;
 
-import by.ttre16.briana.AbstractTest;
 import by.ttre16.briana.assertion.RecursiveAssert;
 import by.ttre16.briana.entity.Client;
 import by.ttre16.briana.entity.Order;
@@ -23,7 +22,7 @@ import static by.ttre16.briana.data.OrganizationTestData.ORGANIZATION2_ID;
 import static by.ttre16.briana.data.OrganizationTestData.ORGANIZATIONS;
 import static by.ttre16.briana.data.ProductTestData.*;
 
-public class OrderRepositoryTest extends AbstractTest {
+public class OrderRepositoryTest extends AbstractRepositoryTest {
     @PersistenceContext
     private EntityManager entityManager;
 

@@ -1,6 +1,5 @@
 package by.ttre16.briana.repository;
 
-import by.ttre16.briana.AbstractTest;
 import by.ttre16.briana.assertion.RecursiveAssert;
 import by.ttre16.briana.entity.Product;
 import org.junit.Assert;
@@ -18,7 +17,7 @@ import static by.ttre16.briana.data.CategoryTestData.*;
 import static by.ttre16.briana.data.OrganizationTestData.*;
 import static by.ttre16.briana.data.ProductTestData.*;
 
-public class ProductRepositoryTest extends AbstractTest {
+public class ProductRepositoryTest extends AbstractRepositoryTest {
     @PersistenceContext
     private EntityManager entityManager;
 

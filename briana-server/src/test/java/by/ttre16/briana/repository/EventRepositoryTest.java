@@ -1,6 +1,5 @@
 package by.ttre16.briana.repository;
 
-import by.ttre16.briana.AbstractTest;
 import by.ttre16.briana.assertion.RecursiveAssert;
 import by.ttre16.briana.entity.Employee;
 import by.ttre16.briana.entity.Event;
@@ -19,7 +18,7 @@ import static by.ttre16.briana.data.EmployeeTestData.EMPLOYEES;
 import static by.ttre16.briana.data.EventTestData.EVENT26_ID;
 import static by.ttre16.briana.data.EventTestData.EVENTS;
 
-public class EventRepositoryTest extends AbstractTest {
+public class EventRepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     private EventRepository eventRepository;

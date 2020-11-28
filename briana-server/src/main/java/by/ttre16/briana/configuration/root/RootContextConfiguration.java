@@ -14,7 +14,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan({
+        "by.ttre16.briana.service",
         "by.ttre16.briana.repository",
+        "by.ttre16.briana.transport.mapper",
         "by.ttre16.briana.configuration.root"
 })
 public class RootContextConfiguration { }
