@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -31,6 +32,7 @@ public class OrderRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     @Transactional
+    @DirtiesContext
     public void save() {
         Order order = new Order();
         order.setCreated(LocalDateTime.now());
@@ -53,6 +55,7 @@ public class OrderRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     @Transactional
+    @DirtiesContext
     public void update() {
         Order order = new Order();
         BeanUtils.copyProperties(

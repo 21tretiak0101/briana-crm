@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -22,6 +23,7 @@ public class OrganizationRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     @Transactional
+    @DirtiesContext
     public void save() {
         Organization organization = new Organization();
         organization.setCurrency("USD");
@@ -41,6 +43,7 @@ public class OrganizationRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     @Transactional
+    @DirtiesContext
     public void update() {
         Organization organization = new Organization();
         BeanUtils.copyProperties(

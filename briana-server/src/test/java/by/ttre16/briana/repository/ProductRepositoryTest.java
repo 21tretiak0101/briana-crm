@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -26,6 +27,7 @@ public class ProductRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     @Transactional
+    @DirtiesContext
     public void save() {
         Product product = new Product();
         product.setName("test:name");
@@ -47,6 +49,7 @@ public class ProductRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     @Transactional
+    @DirtiesContext
     public void update() {
         Product product = new Product();
         BeanUtils.copyProperties(

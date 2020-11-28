@@ -7,6 +7,7 @@ import by.ttre16.briana.entity.EventType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -28,6 +29,7 @@ public class EventRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     @Transactional
+    @DirtiesContext
     public void save() {
         Event event = new Event();
         Employee publisher = EMPLOYEES.get(EMPLOYEE11_ID);
