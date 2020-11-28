@@ -48,6 +48,10 @@ jobs:
         run:  |
          cd briana-server/
          mvn package
+        env:
+          AWS_ACCESS_KEY: test
+          AWS_SECRET_KEY: test
+          JWT_PRIVATE_KEY: test
 
       - name: Copy artifacts to build directory
         run: |
