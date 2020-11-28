@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -30,7 +29,6 @@ public class ClientRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     @Transactional
-    @DirtiesContext
     public void save() {
         Client client = new Client();
         client.setName("test:name");
@@ -52,7 +50,6 @@ public class ClientRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     @Transactional
-    @DirtiesContext
     public void update() {
         Client client = new Client();
         BeanUtils.copyProperties(

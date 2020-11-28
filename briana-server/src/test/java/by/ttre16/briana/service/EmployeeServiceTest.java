@@ -18,14 +18,15 @@ import org.springframework.mock.web.MockMultipartFile;
 import java.util.List;
 import java.util.Optional;
 
-import static by.ttre16.briana.data.EmployeeTestData.*;
+import static by.ttre16.briana.data.EmployeeTestData.EMPLOYEE14_ID;
+import static by.ttre16.briana.data.EmployeeTestData.EMPLOYEES;
 import static org.junit.Assert.assertArrayEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EmployeeServiceTest {
+public class EmployeeServiceTest extends AbstractServiceTest {
     private EmployeeService employeeService;
 
     @Mock
@@ -41,10 +42,6 @@ public class EmployeeServiceTest {
     private EmployeeRepository employeeRepository;
 
     private final Employee employee = new Employee();
-
-    private final Employee publisher = EMPLOYEES.get(EMPLOYEE13_ID);
-
-    private final Integer organizationId = publisher.getOrganization().getId();
 
     @Before
     public void setupMocks() {

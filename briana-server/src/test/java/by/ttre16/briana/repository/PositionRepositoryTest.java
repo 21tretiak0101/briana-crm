@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -28,7 +27,6 @@ public class PositionRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     @Transactional
-    @DirtiesContext
     public void save() {
         Position position = new Position();
         position.setName("test:position");
@@ -52,7 +50,6 @@ public class PositionRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     @Transactional
-    @DirtiesContext
     public void update() {
         Position position = new Position();
         BeanUtils.copyProperties(
