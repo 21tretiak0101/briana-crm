@@ -1,0 +1,20 @@
+.collapsible-header, .collapsible-body, .collapsible, ul.collapsible>li {
+    border-radius: 15px;
+    border: 0!important;
+    margin-top: 10px;
+}
+
+.collapsible-header {
+    justify-content: space-between;
+}
+
+::selection {
+    background: none;
+}
+
+.search {
+    height: 60%;
+    width: 60%;
+}
+
+
