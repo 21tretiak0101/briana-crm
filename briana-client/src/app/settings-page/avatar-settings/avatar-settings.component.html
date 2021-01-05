@@ -1,0 +1,34 @@
+<div class="center">
+  <img [src]="imagePreview || '/assets/my.jpg'" alt="avatar" class="photo">
+  <input
+    #inputElement
+    (change)="onUpload($event)"
+    class="dn"
+    type="file"
+  >
+  <div>
+    <app-circular-loader *ngIf="loading"></app-circular-loader>
+  </div>
+
+  <button
+    (click)="trigger()"
+    [disabled]="loading"
+    class="modal-action btn waves-effect deep-purple lighten-2"
+    type="submit"
+  >
+    <i class="material-icons right">cloud_upload</i>
+    {{ l.edit }}
+  </button>
+  <br>
+
+  <button
+    (click)="onRemove()"
+    *ngIf="imagePreview !== defaultAvatarPath"
+    [disabled]="loading"
+    class="modal-action btn waves-effect deep-purple lighten-2"
+    type="submit"
+  >
+    <i class="material-icons right">delete</i>
+    {{ l.rm }}
+  </button>
+</div>

@@ -5,11 +5,11 @@
       <div class="input-field">
         <select #language formControlName="language" id="language">
           <option
-            *ngFor="let lang of availableLanguages;"
-            [selected]="lang.id === activeLanguage"
-            value="{{ lang.id }}"
+            *ngFor="let language of availableLanguages;"
+            [selected]="func(language)"
+            [value]="language.id"
           >
-            {{ lang.name }}
+            {{ language.name }}
           </option>
         </select>
         <label for="language"></label>
