@@ -1,0 +1,39 @@
+nav {
+    height: 70px;
+}
+
+.sidenav {
+    top: 70px;
+    margin-bottom: 70px;
+    background-color: #f7f7f7;
+}
+
+.last {
+    position: absolute;
+    padding-bottom: 70px;
+}
+
+.brand-logo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100px;
+    height: 100%;
+    margin: auto;
+}
+
+.dropdown-content {
+    border-radius: 5px;
+    text-align: center;
+}
+
+.user-view {
+    background-color: #efefef;
+}
+
+.name {
+    font-size: 25px !important;
+}
+
+i.small {
+    font-size: 15px;
+}

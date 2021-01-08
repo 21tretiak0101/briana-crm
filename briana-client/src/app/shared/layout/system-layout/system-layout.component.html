@@ -1,0 +1,67 @@
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper black">
+      <a routerLink="/dashboard">
+        <img alt="BrianaCRM" class="brand-logo" src="/assets/logo/briana.jpg">
+      </a>
+      <div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div>
+  <ul class="sidenav a-sidenav">
+    <li>
+      <div class="user-view">
+        <a href="#user"><img class="circle" src="/assets/my.jpg"></a>
+        <a href="#name"><span class="name black-text">Ilia Tretiak</span></a>
+        <a href="#email">
+          <span class="email">
+            ilia.tretiak.2001@mail.ru
+          </span>
+        </a>
+      </div>
+    </li>
+    <li
+      *ngFor="let link of links"
+      class="bold"
+      routerLinkActive="active"
+    >
+      <a *ngIf="link.id" [routerLink]="'/' + link.path" class="waves-effect waves-light">
+        {{ link.name }}
+        <i class="material-icons">{{ link.icon }}</i>
+      </a>
+    </li>
+    <li class="bold last">
+      <a (click)="logout($event)" class="waves-effect waves-light">
+        {{ l.exit }}
+        <i class="material-icons left">exit_to_app</i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<main class="content">
+  <router-outlet></router-outlet>
+</main>
+
+<!--Floating button-->
+<!--<div class="fixed-action-btn" #floating>
+  <a class="btn-floating btn-large black">
+    <i class="large material-icons">add</i>
+  </a>
+  <ul>
+    <li>
+      <a class="btn-floating green" routerLink="/order">
+        <i class="material-icons">assignment</i>
+      </a>
+    </li>
+    <li>
+      <a class="btn-floating blue" routerLink="/category/new">
+        <i class="material-icons">list</i>
+      </a>
+    </li>
+  </ul>
+</div>-->
