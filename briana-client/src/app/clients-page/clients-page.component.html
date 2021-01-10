@@ -1,0 +1,62 @@
+<div class="page-title">
+  <h4>{{ l.cl }}</h4>
+  <div>
+    <button
+      (click)="isFilterVisible = !isFilterVisible"
+      class="btn modal-action waves-effect grey lighten-1"
+    >
+      <i class="material-icons">search</i>
+    </button>
+    <button
+      (click)="createClient()"
+      class="btn modal-action waves-effect green"
+    >
+      <i class="material-icons">person_add</i>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s4">
+    <app-client-filter
+      (filterEventEmitter)="applyFilter($event)"
+      *ngIf="isFilterVisible"
+    ></app-client-filter>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s4">
+    <div *ngIf="!loading; else loader">
+      <app-clients-list
+        *ngIf="clients"
+        [clients]="clients"
+        [l]="l"
+      ></app-clients-list>
+      <div class="center">
+        <button
+          (click)="loadMore()"
+          *ngIf="!isLoading; else loader"
+          class="modal-action btn waves-effect deep-purple lighten-2"
+        >
+          {{ l.more }}
+          <i class="material-icons right">expand_more</i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col s8">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<ng-template #loader>
+  <app-circular-loader></app-circular-loader>
+</ng-template>
+
+<app-client-modal
+  (initModalEvent)="initModal($event)"
+></app-client-modal>
+
+
+

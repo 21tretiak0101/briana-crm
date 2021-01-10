@@ -1,0 +1,11 @@
+.line {
+    border-right: 1px solid grey;
+}
+
+.header {
+    justify-content: space-between;
+}
+
+.btn {
+    margin-left: 10px;
+}
