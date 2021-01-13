@@ -1,0 +1,54 @@
+
+  <div class="page-title">
+    <h4>{{ l.pr }}</h4>
+    <div>
+      <button
+        class="btn modal-action waves-effect grey lighten-1"
+      >
+        <i class="material-icons">search</i>
+      </button>
+      <button
+        class="waves-effect waves-light btn green darken-2"
+        routerLink="/category/new"
+      >
+        <i class="material-icons">add</i>
+      </button>
+      <button
+        class="waves-effect waves-light btn green darken-2"
+        routerLink="/category/new"
+      >
+        <i class="material-icons">library_add</i>
+      </button>
+    </div>
+  </div>
+
+  <div
+    *ngIf="categories$ | async as categories; else loader"
+    class="row"
+  >
+    <div class="col s12">
+      <div *ngIf="categories.length !== 0; else empty" class="collection">
+        <a
+          *ngFor="let category of categories"
+           [routerLink]="['/category', 10]"
+          class="collection-item"
+        >
+          {{ category.name }}
+          <div class="secondary-content">
+            <i class="material-icons">navigate_next</i>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+
+  <ng-template #empty>
+    <div class="center">
+      категорий нет
+    </div>
+  </ng-template>
+
