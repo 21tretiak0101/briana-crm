@@ -8,10 +8,10 @@
         <div class="center">
           <img alt="" class="photo" src="/assets/my.jpg">
           <div class="info">
-            Ilia Tretiak <span class="blue-text">(#37812)</span>
+            {{ employee.name}} <span class="blue-text">(#{{ employee.id }})</span>
           </div>
           <div class="grey-text">
-            Software developer
+            {{ employee.positionName }}
           </div>
         </div>
       </div>
@@ -43,20 +43,26 @@
           </div>
           <div class="col s7">
             <div class="info">
-              mail12@mail.ru
+              {{ employee.email }}
             </div>
             <div class="info">
-              +37546382090
+              {{ employee.phone }}
             </div>
             <div class="info">
-              230019, Grodno, Belarus
+              {{ employee.address.postcode }}
+              <br>
+              {{ employee.address.city}}, {{employee.address.country}}
             </div>
             <div class="info">
-              Our best developer
+              {{ employee.description }}
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="col s7">
+    <app-employee-activity></app-employee-activity>
+    <app-employee-analytics></app-employee-analytics>
   </div>
 </div>
