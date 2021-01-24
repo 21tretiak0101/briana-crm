@@ -1,0 +1,8 @@
+<div [formGroup]="form">
+  <div class="input-field">
+    <i class="material-icons prefix">email</i>
+    <input [type]="question.type" formControlName="{{ question.key }}" id="{{ question.key }}">
+    <label for="{{ question.key }}">{{ question.label | lang }}</label>
+  </div>
+</div>
+
