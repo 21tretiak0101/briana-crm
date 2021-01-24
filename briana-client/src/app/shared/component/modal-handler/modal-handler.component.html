@@ -1,0 +1,40 @@
+<div #modal class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <form [formGroup]="form">
+            <div *ngFor="let question of questions" class="row">
+              <app-dynamic-question
+                [form]="form"
+                [question]="question"
+              ></app-dynamic-question>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="left">
+      <app-success *ngIf="isSuccess"></app-success>
+      <app-circular-loader *ngIf="isLoading"></app-circular-loader>
+    </div>
+    <button
+      (click)="onSubmit()"
+      [disabled]="isLoading || isSuccess"
+      class="modal-action btn waves-effect deep-purple lighten-2"
+    >
+      {{ 'save' | lang }}
+      <i class="material-icons right"></i>
+    </button>
+    <button
+      (click)="close()"
+      [disabled]="isLoading || isSuccess"
+      class="modal-action btn waves-effect red lighten-2"
+    >
+      {{ 'close' | lang }}
+      <i class="material-icons right"></i>
+    </button>
+  </div>
+</div>
