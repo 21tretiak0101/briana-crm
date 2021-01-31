@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
+  OnInit,
   Output,
   ViewChild
 } from '@angular/core';
@@ -13,21 +14,33 @@ import {
   MaterialInstance,
   MaterialService
 } from '../../service/material/material.service';
-import {ProductQuestion} from '../../../products-page/product-modal/product-modal.component';
+import {DynamicQuestion} from '../dynamic-question/dynamic-question.component';
+import {DynamicQuestionService} from '../../service/dynamic-question/dynamic-question.service';
+import {SuccessComponent} from '../success/success.component';
+import {CircularLoaderComponent} from '../circular-loader/circular-loader.component';
 
 @Component({
   selector: 'app-modal-handler',
   templateUrl: './modal-handler.component.html',
   styleUrls: ['./modal-handler.component.css']
 })
-export class ModalHandlerComponent implements AfterViewInit, OnDestroy {
+export class ModalHandlerComponent implements AfterViewInit, OnDestroy, OnInit {
+  @Input() questions: DynamicQuestion[];
+  form: FormGroup;
   @ViewChild('modal') modalRef: ElementRef;
   @Output() submitEvent = new EventEmitter<any>();
-  @Input() form: FormGroup;
-  @Input() questions: ProductQuestion[];
+  editable = true;
   materialModal: MaterialInstance;
-  isSuccess = false;
-  isLoading = false;
+  @ViewChild(SuccessComponent)
+  private successComponent: SuccessComponent;
+  @ViewChild(CircularLoaderComponent)
+  private circularLoader: CircularLoaderComponent;
+
+  constructor(private questionService: DynamicQuestionService) { }
+
+  ngOnInit(): void {
+    this.form = this.questionService.toFormGroup(this.questions);
+  }
 
   ngAfterViewInit(): void {
     this.materialModal = MaterialService.initModal(this.modalRef);
@@ -37,27 +50,36 @@ export class ModalHandlerComponent implements AfterViewInit, OnDestroy {
     this.materialModal.destroy();
   }
 
+  open(model: object) {
+    this.patchValue(model);
+    this.materialModal.open();
+  }
+
   onSubmit(): void {
+    this.circularLoader.startLoading();
     this.submitEvent.emit(this.form.value);
+    this.editable = false;
   }
 
   close(): void {
     this.materialModal.close();
-  }
-
-  open(): void {
-    this.materialModal.open();
-  }
-
-  switchLoader(): void {
-    this.isLoading = !this.isLoading;
+    this.editable = true;
   }
 
   success(): void {
-    this.isSuccess = true;
-    setTimeout(() => {
-      this.isSuccess = false;
-      this.close();
-    }, 2500);
+    this.circularLoader.endLoading();
+    this.successComponent.success(this.close.bind(this));
+  }
+
+  error(): void {
+    this.circularLoader.endLoading();
+    this.editable = true;
+  }
+
+  private patchValue(model: object): void {
+    this.form.patchValue(
+      this.questionService.getValue(this.questions, model)
+    );
+    MaterialService.updateInputs();
   }
 }

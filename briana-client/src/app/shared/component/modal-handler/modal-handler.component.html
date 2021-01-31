@@ -17,12 +17,12 @@
   </div>
   <div class="modal-footer">
     <div class="left">
-      <app-success *ngIf="isSuccess"></app-success>
-      <app-circular-loader *ngIf="isLoading"></app-circular-loader>
+      <app-success></app-success>
+      <app-circular-loader></app-circular-loader>
     </div>
     <button
       (click)="onSubmit()"
-      [disabled]="isLoading || isSuccess"
+      [disabled]="!editable"
       class="modal-action btn waves-effect deep-purple lighten-2"
     >
       {{ 'save' | lang }}
@@ -30,7 +30,7 @@
     </button>
     <button
       (click)="close()"
-      [disabled]="isLoading || isSuccess"
+      [disabled]="!editable"
       class="modal-action btn waves-effect red lighten-2"
     >
       {{ 'close' | lang }}
