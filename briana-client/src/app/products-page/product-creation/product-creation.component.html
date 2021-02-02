@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="center">
+    <h1>{{ 'prNew' | lang }}</h1>
+  </div>
+  <div class="row">
+    <div class="col s8">
+      <app-product-details
+        (productCreateEvent)="onProductCreate($event)"
+      ></app-product-details>
+    </div>
+    <div class="col s4">
+      <app-product-image
+        (fileRemoveEvent)="onFileRemove()"
+        (fileUploadEvent)="onFileUpload($event)"
+      ></app-product-image>
+    </div>
+  </div>
+</div>
