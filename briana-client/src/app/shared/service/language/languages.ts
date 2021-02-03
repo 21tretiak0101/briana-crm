@@ -1,17 +1,20 @@
-export interface TranslationToken {
+export interface Language {
+  id: string;
+  name: string;
+}
+
+export interface LanguageTokens {
   [key: string]: {} | string;
 }
 
-export const AVAILABLE_LANGUAGES = [
+export const AVAILABLE_LANGUAGES: Language[] = [
   {id: 'en', name: 'English'},
-  {id: 'ru', name: 'Русский'},
-  {id: 'uk', name: 'Ukraine'},
+  {id: 'ru', name: 'Русский'}
 ];
 
-export const DEFAULT_LANGUAGE = 'en';
+export const DEFAULT_LANGUAGE: Language = AVAILABLE_LANGUAGES[0];
 
-export const LANGUAGES: TranslationToken = {
-  default: 'en',
+export const TOKENS: LanguageTokens = {
   login: {
     en: 'Login',
     ru: 'Логин'
@@ -65,6 +68,10 @@ export const LANGUAGES: TranslationToken = {
     ru: 'Новый пароль'
   },
   name: {
+    en: 'Name',
+    ru: 'Название'
+  },
+  username: {
     en: 'Name',
     ru: 'Имя'
   },
@@ -167,5 +174,29 @@ export const LANGUAGES: TranslationToken = {
   at: {
     en: 'at',
     ru: 'в'
+  },
+  pr: {
+    en: 'Products',
+    ru: 'Продукты'
+  },
+  price: {
+    en: 'Price',
+    ru: 'Цена'
+  },
+  prNew: {
+    en: 'New product',
+    ru: 'Новый продукт'
+  },
+  ctNew: {
+    en: 'New category',
+    ru: 'Новая категория'
+  },
+  chCat: {
+    en: 'Choose a category',
+    ru: 'Выберите категорию'
+  },
+  addNew: {
+    en: 'Add new',
+    ru: 'Добавить новую'
   }
 };

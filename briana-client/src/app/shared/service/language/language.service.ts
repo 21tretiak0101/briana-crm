@@ -1,33 +1,34 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {DEFAULT_LANGUAGE, LANGUAGES, TranslationToken} from './languages';
+import {DEFAULT_LANGUAGE, LanguageTokens, TOKENS} from './languages';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LanguageService {
-  activeLanguage: string = DEFAULT_LANGUAGE;
-  private subject = new BehaviorSubject<TranslationToken>(
-    this.set(DEFAULT_LANGUAGE)
+  actualTokens: LanguageTokens = this.generateTokens(DEFAULT_LANGUAGE.id);
+
+  private behaviorSubject = new BehaviorSubject<LanguageTokens>(
+    this.actualTokens
   );
 
-  switchTo(language: string) {
-    this.subject.next(this.set(language));
+  get tokens(): Observable<LanguageTokens> {
+    return this.behaviorSubject.asObservable();
   }
 
-  get(): Observable<TranslationToken> {
-    return this.subject.asObservable();
+  changeLanguage(languageId: string) {
+    this.actualTokens = this.generateTokens(languageId);
+    this.behaviorSubject.next(this.actualTokens);
   }
 
-  getCurrent(): TranslationToken {
-    return this.set(this.activeLanguage);
+  get(token: string): string {
+    return this.actualTokens[token] as string;
   }
 
-  private set(language: string): TranslationToken {
-    this.activeLanguage = language;
-    return Object.keys(LANGUAGES).reduce((answer, token) => {
-      answer[token] = LANGUAGES[token][language];
-      return answer;
+  private generateTokens(languageId: string): LanguageTokens {
+    return Object.keys(TOKENS).reduce((generated, token) => {
+      generated[token] = TOKENS[token][languageId];
+      return generated;
     }, {});
   }
 }
