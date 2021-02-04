@@ -1,13 +1,13 @@
 import {TestBed} from '@angular/core/testing';
 
-import {DynamicQuestionService} from './dynamic-question.service';
+import {DynamicFormService} from './dynamic-form.service';
 
 describe('DynamicQuestionService', () => {
-  let service: DynamicQuestionService;
+  let service: DynamicFormService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DynamicQuestionService);
+    service = TestBed.inject(DynamicFormService);
   });
 
   it('should be created', () => {
