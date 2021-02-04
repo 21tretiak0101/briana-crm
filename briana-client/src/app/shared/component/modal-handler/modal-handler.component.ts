@@ -9,13 +9,16 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
 import {
   MaterialInstance,
   MaterialService
 } from '../../service/material/material.service';
-import {DynamicQuestion} from '../dynamic-question/dynamic-question.component';
-import {DynamicQuestionService} from '../../service/dynamic-question/dynamic-question.service';
+import {
+  DynamicFormGroup,
+  DynamicFormGroupValues,
+  DynamicQuestionGroup
+} from '../dynamic-question/dynamic-question.component';
+import {DynamicFormService} from '../../service/dynamic-question/dynamic-form.service';
 import {SuccessComponent} from '../success/success.component';
 import {CircularLoaderComponent} from '../circular-loader/circular-loader.component';
 
@@ -25,21 +28,26 @@ import {CircularLoaderComponent} from '../circular-loader/circular-loader.compon
   styleUrls: ['./modal-handler.component.css']
 })
 export class ModalHandlerComponent implements AfterViewInit, OnDestroy, OnInit {
-  @Input() questions: DynamicQuestion[];
-  form: FormGroup;
+  @Input() questionGroups: DynamicQuestionGroup[];
   @ViewChild('modal') modalRef: ElementRef;
-  @Output() submitEvent = new EventEmitter<any>();
-  editable = true;
-  materialModal: MaterialInstance;
+  @Output() submitEvent = new EventEmitter<DynamicFormGroupValues>();
+
   @ViewChild(SuccessComponent)
   private successComponent: SuccessComponent;
+
   @ViewChild(CircularLoaderComponent)
   private circularLoader: CircularLoaderComponent;
 
-  constructor(private questionService: DynamicQuestionService) { }
+  materialModal: MaterialInstance;
+  dynamicFormGroups: DynamicFormGroup[];
+  editable = true;
+
+  constructor(private dynamicFormService: DynamicFormService) { }
 
   ngOnInit(): void {
-    this.form = this.questionService.toFormGroup(this.questions);
+    this.dynamicFormGroups = this.questionGroups.map(
+      this.dynamicFormService.toDynamicFormGroup
+    );
   }
 
   ngAfterViewInit(): void {
@@ -50,14 +58,16 @@ export class ModalHandlerComponent implements AfterViewInit, OnDestroy, OnInit {
     this.materialModal.destroy();
   }
 
-  open(model: object) {
-    this.patchValue(model);
+  open(values: DynamicFormGroupValues) {
+    this.patchValues(values);
     this.materialModal.open();
   }
 
   onSubmit(): void {
     this.circularLoader.startLoading();
-    this.submitEvent.emit(this.form.value);
+    this.submitEvent.emit(
+      this.dynamicFormService.getValues(this.dynamicFormGroups)
+    );
     this.editable = false;
   }
 
@@ -76,10 +86,8 @@ export class ModalHandlerComponent implements AfterViewInit, OnDestroy, OnInit {
     this.editable = true;
   }
 
-  private patchValue(model: object): void {
-    this.form.patchValue(
-      this.questionService.getValue(this.questions, model)
-    );
+  private patchValues(values: DynamicFormGroupValues): void {
+    this.dynamicFormService.patchValues(values, this.dynamicFormGroups);
     MaterialService.updateInputs();
   }
 }

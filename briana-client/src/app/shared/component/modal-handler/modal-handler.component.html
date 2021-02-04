@@ -3,10 +3,12 @@
     <div class="container">
       <div class="row">
         <div class="col s12">
-          <form [formGroup]="form">
-            <div *ngFor="let question of questions" class="row">
+          <form
+            *ngFor="let dynamicFormGroup of dynamicFormGroups"
+            [formGroup]="dynamicFormGroup.formGroup">
+            <div *ngFor="let question of dynamicFormGroup.questions" class="row">
               <app-dynamic-question
-                [form]="form"
+                [formGroup]="dynamicFormGroup.formGroup"
                 [question]="question"
               ></app-dynamic-question>
             </div>
