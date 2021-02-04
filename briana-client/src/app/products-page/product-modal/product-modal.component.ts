@@ -1,99 +1,60 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild
-} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ModalHandlerComponent} from '../../shared/component/modal-handler/modal-handler.component';
 import {Product} from '../../shared/entities';
-import {MaterialService} from '../../shared/service/material/material.service';
 import {ProductService} from '../../shared/service/product/product.service';
-
-export class ProductQuestion {
-  key: string;
-  label: string;
-  type: string;
-
-  constructor(options: {
-    key: string,
-    label: string;
-    type: string,
-  }) {
-    this.key = options.key;
-    this.label = options.label;
-    this.type = options.type;
-  }
-}
+import {
+  DynamicFormGroupValues,
+  DynamicQuestion,
+  DynamicQuestionGroup
+} from '../../shared/component/dynamic-question/dynamic-question.component';
 
 @Component({
   selector: 'app-product-modal',
-  templateUrl: './product-modal.component.html',
-  styleUrls: ['./product-modal.component.css']
+  template: `
+    <app-modal-handler
+      (submitEvent)="onSubmit($event)"
+      [questionGroups]="dynamicQuestionGroup"
+    ></app-modal-handler>
+  `
 })
-export class ProductModalComponent implements OnInit {
+export class ProductModalComponent {
   @Input() product: Product;
   @Output() updateProductEvent = new EventEmitter<Product>();
-  form: FormGroup;
-  questions: ProductQuestion[] = [
-    new ProductQuestion({
-      key: 'price',
-      label: 'price',
-      type: 'text'
-    }),
-    new ProductQuestion({
-      key: 'description',
-      label: 'desc',
-      type: 'text'
-    }),
-  ];
   @ViewChild(ModalHandlerComponent)
   private modalHandler: ModalHandlerComponent;
+  private groupName = 'product';
+  dynamicQuestionGroup: DynamicQuestionGroup[] = [{
+    groupName: this.groupName,
+    questions: [
+      new DynamicQuestion({
+        key: 'price',
+        label: 'price',
+        type: 'text'
+      }),
+      new DynamicQuestion({
+        key: 'description',
+        label: 'desc',
+        type: 'text'
+      }),
+    ]
+  }];
 
   constructor(private productService: ProductService) { }
 
-  ngOnInit(): void {
-    this.initForm();
-  }
-
-  initForm(): void {
-    const qr = this.questions.reduce((group, question) => {
-      group[question.key] = new FormControl();
-      return group;
-    }, {});
-    this.form = new FormGroup(qr);
-  }
-
   open(): void {
-    const {price, description} = this.product;
-    this.form.patchValue({price, description});
-    MaterialService.updateInputs();
-    this.modalHandler.open();
+    this.modalHandler.open({
+      [this.groupName]: this.product
+    });
   }
 
-  onUpdate({price, description}) {
-    this.modalHandler.switchLoader();
+  onSubmit(formGroupValue: DynamicFormGroupValues) {
+    const {price, description} = formGroupValue[this.groupName];
     const updated = {...this.product, price, description};
     this.productService.update(updated).subscribe(
       pr => {
         this.updateProductEvent.emit(pr);
-        this.modalHandler.switchLoader();
         this.modalHandler.success();
       }
     );
-  }
-
-  edit(): void {
-    const {price, description} = this.product;
-    this.form.patchValue({price, description});
-    MaterialService.updateInputs();
-    this.modalHandler.open();
-  }
-
-  create(): void {
-    this.form.patchValue({});
-    this.modalHandler.open();
   }
 }
