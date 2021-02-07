@@ -11,11 +11,11 @@ import {Router} from '@angular/router';
 })
 export class CreationHandlerComponent {
   @Output() submitEvent = new EventEmitter<void>();
-  editable = true;
   @ViewChild(SuccessComponent)
   private successComponent: SuccessComponent;
   @ViewChild(ResponsiveCircularLoaderComponent)
   private circularLoader: ResponsiveCircularLoaderComponent;
+  editable = true;
 
   constructor(
     @Host() private creationService: CreationService,
@@ -23,7 +23,6 @@ export class CreationHandlerComponent {
   ) { }
 
   save(entity): void {
-    console.log('here', entity);
     this.startLoading();
     this.creationService.save(entity).subscribe(
       () => this.success(),
