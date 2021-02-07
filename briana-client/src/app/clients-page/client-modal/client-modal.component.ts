@@ -1,163 +1,121 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild
-} from '@angular/core';
-import {
-  MaterialInstance,
-  MaterialService
-} from '../../shared/service/material/material.service';
-import {TranslationToken} from '../../shared/service/language/languages';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Client} from '../../shared/entities';
-import {FormControl, FormGroup} from '@angular/forms';
+import {ModalHandlerComponent} from '../../shared/component/modal-handler/modal-handler.component';
+import {
+  DynamicFormGroupValues,
+  DynamicQuestion,
+  DynamicQuestionGroup
+} from '../../shared/component/dynamic-question/dynamic-question.component';
 import {ClientService} from '../../shared/service/client/client.service';
-import {LanguageService} from '../../shared/service/language/language.service';
-import {delay} from 'rxjs/operators';
-
-export interface ClientModal {
-  create(): void;
-  update(client: Client): void;
-}
+import {MaterialService} from '../../shared/service/material/material.service';
 
 @Component({
   selector: 'app-client-modal',
-  templateUrl: './client-modal.component.html',
-  styleUrls: ['./client-modal.component.css']
+  template: `
+    <app-modal-handler
+      (submitEvent)="onSubmit($event)"
+      [questionGroups]="dynamicQuestionGroup"
+    ></app-modal-handler>
+  `
 })
-export class ClientModalComponent implements AfterViewInit, OnDestroy, OnInit {
-  @ViewChild('modal') modalRef: ElementRef;
-  @Output() initModalEvent = new EventEmitter<ClientModal>();
+export class ClientModalComponent {
+  @Input() client: Client;
   @Output() updateClientEvent = new EventEmitter<Client>();
-  l: TranslationToken;
-  modal: MaterialInstance;
-  form: FormGroup;
-  isLoading = false;
-  isSuccess = false;
-  isNew = false;
-  clientModal: ClientModal = {
-    create: this.create.bind(this),
-    update: this.update.bind(this)
-  };
+  @ViewChild(ModalHandlerComponent)
+  private modalHandler: ModalHandlerComponent;
 
-  constructor(private clientService: ClientService,
-              private lang: LanguageService) { }
+  private clientGroupName = 'client';
+  private addressGroupName = 'address';
 
-  ngOnInit(): void {
-    this.initForm();
-    this.l = this.lang.getCurrent();
+  dynamicQuestionGroup: DynamicQuestionGroup[] = [
+    {
+      groupName: this.clientGroupName,
+      questions: [
+        new DynamicQuestion({
+          key: 'name',
+          label: 'name',
+          type: 'text'
+        }),
+        new DynamicQuestion({
+          key: 'email',
+          label: 'email',
+          type: 'text'
+        }),
+        new DynamicQuestion({
+          key: 'phone',
+          label: 'phone',
+          type: 'text'
+        }),
+        new DynamicQuestion({
+          key: 'description',
+          label: 'desc',
+          type: 'text'
+        })
+      ]
+    },
+    {
+      groupName: this.addressGroupName,
+      questions: [
+        new DynamicQuestion({
+          key: 'country',
+          label: 'country',
+          type: 'text'
+        }),
+        new DynamicQuestion({
+          key: 'city',
+          label: 'city',
+          type: 'text'
+        }),
+        new DynamicQuestion({
+          key: 'postcode',
+          label: 'postcode',
+          type: 'text'
+        }),
+      ]
+    }
+  ];
+
+  constructor(private clientService: ClientService) { }
+
+  open(): void {
+    const {name, email, phone, description} = this.client;
+    this.modalHandler.open({
+      [this.clientGroupName]: {name, email, phone, description},
+      [this.addressGroupName]: {
+        city: this.client.address?.city,
+        country: this.client.address?.country,
+        postcode: this.client.address?.postcode
+      }
+    });
   }
 
-  ngAfterViewInit(): void {
-    this.modal = MaterialService.initModal(this.modalRef);
-    this.initModalEvent.emit(this.clientModal);
-  }
-
-  ngOnDestroy(): void {
-    this.modal.destroy();
-  }
-
-  close() {
-    this.modal.close();
-  }
-
-  submitForm() {
-    const {
-      name,
-      email,
-      phone,
-      description,
-      country,
-      city,
-      postcode
-    } = this.form.value;
-    const instance: Client = {
+  onSubmit(values: DynamicFormGroupValues) {
+    const {name, email, phone, description} = values[this.clientGroupName];
+    const {city, country, postcode} = values[this.addressGroupName];
+    const client: Client = {
       name,
       email,
       phone,
       description,
       address: {
-        country,
         city,
+        country,
         postcode
       }
     };
-    this.saveClient(instance);
-  }
-
-  private initForm() {
-    this.form = new FormGroup({
-      name: new FormControl(),
-      email: new FormControl(),
-      phone: new FormControl(),
-      country: new FormControl(),
-      city: new FormControl(),
-      postcode: new FormControl(),
-      description: new FormControl()
-    });
-  }
-
-  private saveClient(client: Client): void {
-    this.isLoading = true;
-    this.clientService.save(client).pipe(delay(1000)).subscribe(
-      saved => {
-        if (!this.isNew) {
-          this.updateClientEvent.emit(saved);
-        }
-        this.isLoading = false;
-        this.success();
-      },
-      error => {
-        MaterialService.toast(error);
-        this.isLoading = true;
-      }
-    );
-  }
-
-  private success(): void {
-    this.isSuccess = true;
-    setTimeout(() => {
-      this.isSuccess = false;
-      this.close();
-    }, 2500);
-  }
-
-  private create(): void {
-    this.isNew = true;
-    this.modal.open();
+    this.update(client);
   }
 
   private update(client: Client): void {
-    this.isNew = false;
-    this.patchValues(client);
-    this.modal.open();
-  }
-
-  private patchValues(client: Client): void {
-    const {
-      name,
-      email,
-      phone,
-      description = '',
-      address: {
-        country,
-        city,
-        postcode
+    this.clientService.save(client).subscribe(
+      saved => {
+          this.updateClientEvent.emit(saved);
+          this.modalHandler.success();
       },
-    } = client;
-    this.form.patchValue({
-      name,
-      email,
-      phone,
-      description,
-      country,
-      city,
-      postcode
-    });
-    MaterialService.updateInputs();
+      error => {
+        this.modalHandler.error();
+        MaterialService.toast(error);
+      }
+    );
   }
 }
