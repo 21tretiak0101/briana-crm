@@ -14,12 +14,4 @@ export class ClientOrdersComponent {
       MaterialService.initCollapsible(collapsibleRef);
     }
   }
-
-  getTotalPrice(order: Order): number {
-    return order.products.reduce(
-      (total, nextProduct) => {
-        total = total + nextProduct.price;
-        return total;
-      }, 0);
-  }
 }

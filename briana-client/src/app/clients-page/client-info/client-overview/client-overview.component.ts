@@ -1,15 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-client-overview',
-  templateUrl: './client-overview.component.html',
-  styleUrls: ['./client-overview.component.css']
+  template: `
+    <div class="center">
+      <img alt="" class="default-image" [src]="'/assets/analytics.png'">
+    </div>
+  `
 })
-export class ClientOverviewComponent implements OnInit {
+export class ClientOverviewComponent {
   @Input() clientId: number;
-
-  constructor() { }
-
-  ngOnInit(): void { }
-
 }

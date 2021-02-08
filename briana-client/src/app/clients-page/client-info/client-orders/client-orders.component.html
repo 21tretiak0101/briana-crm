@@ -15,7 +15,7 @@
           {{ product.name}}.............. {{ product.price}}$
         </div>
         <div>
-          Total: {{ getTotalPrice(order) }}
+          {{ 'total' | lang }}: {{ order | totalPrice }}
         </div>
       </div>
     </li>

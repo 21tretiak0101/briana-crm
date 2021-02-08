@@ -13,11 +13,9 @@ import {
 import {ActivatedRoute, Params} from '@angular/router';
 import {ClientService} from '../../shared/service/client/client.service';
 import {Client} from '../../shared/entities';
-import {LanguageService} from '../../shared/service/language/language.service';
-import {TranslationToken} from '../../shared/service/language/languages';
 import {switchMap} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
-import {ClientModal} from '../client-modal/client-modal.component';
+import {ClientModalComponent} from '../client-modal/client-modal.component';
 
 @Component({
   selector: 'app-client-info',
@@ -25,19 +23,18 @@ import {ClientModal} from '../client-modal/client-modal.component';
   styleUrls: ['./client-info.component.css']
 })
 export class ClientInfoComponent implements OnInit, AfterViewInit, OnDestroy {
-  client: Client;
   @ViewChild('tabs') tabsRef: ElementRef;
   @ViewChild('overview') overviewRef: ElementRef;
-  l: TranslationToken;
+  @ViewChild(ClientModalComponent) clientModal: ClientModalComponent;
+  client: Client;
   tabs: Tabs;
-  modal: ClientModal;
 
-  constructor(private route: ActivatedRoute,
-              private clientService: ClientService,
-              private lang: LanguageService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private clientService: ClientService
+  ) { }
 
   ngOnInit(): void {
-    this.l = this.lang.getCurrent();
     this.setClient();
   }
 
@@ -73,15 +70,7 @@ export class ClientInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.client.name.slice(0, 2).toUpperCase();
   }
 
-  update() {
-    this.modal.update(this.client);
-  }
-
-  initModal(modal: ClientModal) {
-    this.modal = modal;
-  }
-
-  setUpdated(updated: Client) {
+  onUpdate(updated: Client) {
     this.client = {...this.client, ...updated};
   }
 }

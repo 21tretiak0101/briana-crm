@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
   styleUrls: ['./default-client-info.component.css'],
   template: `
     <div class="center">
-      <img src="/assets/women.png" alt="" class="women">
+      <img [src]="'/assets/women.png'" alt="" class="women">
     </div>
   `
 })

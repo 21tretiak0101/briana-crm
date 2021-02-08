@@ -1,11 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {TranslationToken} from '../shared/service/language/languages';
-import {LanguageService} from '../shared/service/language/language.service';
-import {Observable} from 'rxjs';
 import {ClientService} from '../shared/service/client/client.service';
 import {Client} from '../shared/entities';
 import {ClientFilter} from './client-filter/client-filter.component';
-import {ClientModal} from './client-modal/client-modal.component';
 import {delay} from 'rxjs/operators';
 
 const STEP = 5;
@@ -16,21 +12,16 @@ const STEP = 5;
   styleUrls: ['./clients-page.component.css']
 })
 export class ClientsPageComponent implements OnInit {
-  l: TranslationToken;
   clients: Client[];
   isFilterVisible = false;
-  loading = false;
+  isLoading = false;
   pageNumber = 0;
   limit = STEP;
-  modal: ClientModal;
-  isLoading = false;
   params = {};
 
-  constructor(private lang: LanguageService,
-              private clientService: ClientService) { }
+  constructor(private clientService: ClientService) { }
 
   ngOnInit(): void {
-    this.l = this.lang.getCurrent();
     this.fetchAll();
   }
 
@@ -38,22 +29,14 @@ export class ClientsPageComponent implements OnInit {
     this.fetchAll(filter);
   }
 
-  loadMore(): void {
+  onLoadMore(): void {
     this.pageNumber += STEP;
     this.fetchAll();
   }
 
-  initModal(modal: ClientModal) {
-    this.modal = modal;
-  }
-
-  createClient() {
-    this.modal.create();
-  }
-
-  private fetchAll(params = this.params): void {
-    this.isLoading = true;
-    this.params = params;
+  private fetchAll(params?: {}): void {
+    this.switchLoading();
+    this.params = params || this.params;
     this.clientService.getAll({
         pageNumber: this.pageNumber,
         limit: this.limit,
@@ -62,8 +45,12 @@ export class ClientsPageComponent implements OnInit {
     ).pipe(delay(1000)).subscribe(
       filtered => {
         this.clients = filtered;
-        this.isLoading = false;
+        this.switchLoading();
       }
     );
+  }
+
+  private switchLoading(): void {
+    this.isLoading = !this.isLoading;
   }
 }

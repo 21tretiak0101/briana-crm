@@ -1,5 +1,5 @@
 <div class="page-title">
-  <h4>{{ l.cl }}</h4>
+  <h4>{{ 'cl' | lang }}</h4>
   <div>
     <button
       (click)="isFilterVisible = !isFilterVisible"
@@ -8,7 +8,7 @@
       <i class="material-icons">search</i>
     </button>
     <button
-      (click)="createClient()"
+      routerLink="/clients/new"
       class="btn modal-action waves-effect green"
     >
       <i class="material-icons">person_add</i>
@@ -27,22 +27,22 @@
 
 <div class="row">
   <div class="col s4">
-    <div *ngIf="!loading; else loader">
-      <app-clients-list
-        *ngIf="clients"
-        [clients]="clients"
-        [l]="l"
-      ></app-clients-list>
-      <div class="center">
-        <button
-          (click)="loadMore()"
-          *ngIf="!isLoading; else loader"
-          class="modal-action btn waves-effect deep-purple lighten-2"
-        >
-          {{ l.more }}
-          <i class="material-icons right">expand_more</i>
-        </button>
-      </div>
+    <app-clients-list
+      *ngIf="clients"
+      [clients]="clients"
+    ></app-clients-list>
+    <div [ngSwitch]="isLoading" class="center">
+
+      <button
+        (click)="onLoadMore()"
+        *ngSwitchCase="false"
+        class="modal-action btn waves-effect deep-purple lighten-2"
+      >
+        {{ 'more' | lang }}
+        <i class="material-icons right">expand_more</i>
+      </button>
+
+      <app-circular-loader *ngSwitchCase="true"></app-circular-loader>
     </div>
   </div>
   <div class="col s8">
@@ -50,13 +50,6 @@
   </div>
 </div>
 
-<ng-template #loader>
-  <app-circular-loader></app-circular-loader>
-</ng-template>
-
-<app-client-modal
-  (initModalEvent)="initModal($event)"
-></app-client-modal>
 
 
 

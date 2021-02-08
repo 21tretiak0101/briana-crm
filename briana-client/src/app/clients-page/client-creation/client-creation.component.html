@@ -1,5 +1,7 @@
-<div class="card">
-  <div class="card-content">
+<div class="container">
+  <app-creation-handler
+    (submitEvent)="onSubmit()"
+  >
     <div class="card-title">
       {{ 'clNew' | lang }}
     </div>
@@ -44,17 +46,7 @@
           <label for="postcode">{{ 'postcode' | lang }}</label>
         </div>
       </div>
-      <button
-        [disabled]="form.invalid || !editable"
-        class="modal-action btn waves-effect deep-purple lighten-2"
-        type="submit"
-      >
-        {{ 'create' | lang  }}
-      </button>
-      <div class="right">
-        <app-responsive-circular-loader class="right"></app-responsive-circular-loader>
-        <app-success class="right"></app-success>
-      </div>
     </form>
-  </div>
+  </app-creation-handler>
 </div>
+

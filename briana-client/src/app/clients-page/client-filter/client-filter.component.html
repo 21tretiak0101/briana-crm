@@ -9,13 +9,13 @@
     <div class="input-field">
       <i class="material-icons prefix">account_circle</i>
       <input [(ngModel)]="name" id="filterName" type="text">
-      <label for="filterName">Name</label>
+      <label for="filterName">{{ 'username' | lang }}</label>
     </div>
 
     <div class="input-field">
       <i class="material-icons prefix medium">email</i>
       <input  [(ngModel)]="email" id="filterEmail" type="text">
-      <label for="filterEmail">Email</label>
+      <label for="filterEmail">{{ 'email' | lang }}</label>
     </div>
 
     <div class="center">
@@ -23,7 +23,7 @@
         (click)="submit()"
         class="modal-action btn waves-effect deep-purple lighten-2"
       >
-        Apply filter
+        {{ 'applyFilter' | lang }}
       </button>
     </div>
   </div>
