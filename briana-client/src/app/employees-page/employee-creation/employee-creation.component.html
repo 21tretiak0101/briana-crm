@@ -1,0 +1,36 @@
+<div class="center">
+  <h3>{{ 'emNew' | lang }}</h3>
+</div>
+<div class="container">
+  <app-creation-handler
+    (submitEvent)="onSubmit()"
+  >
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="input-field">
+        <input formControlName="name" id="name" type="text">
+        <label for="name">{{ 'name' | lang }}</label>
+      </div>
+      <div class="input-field">
+        <input formControlName="phone" id="phone" type="tel">
+        <label for="phone">{{ 'phone' | lang }}</label>
+      </div>
+      <div class="input-field">
+        <input formControlName="email" id="email" type="email">
+        <label for="email">{{ 'email' | lang }}</label>
+      </div>
+      <div class="input-field">
+        <select #position formControlName="position" id="position">
+          <option disabled selected value="">{{ 'chPos' | lang }}</option>
+          <option
+            *ngFor=" let position of availablePositions$ | async"
+            [value]="position.name"
+          >
+            {{ position.name }}
+          </option>
+        </select>
+        <label for="position">{{ 'position' | lang }}</label>
+      </div>
+    </form>
+  </app-creation-handler>
+</div>
+

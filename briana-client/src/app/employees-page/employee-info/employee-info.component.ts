@@ -3,6 +3,7 @@ import {EmployeeService} from '../../shared/service/employee/employee.service';
 import {ActivatedRoute} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {Employee} from '../../shared/entities';
+import {DEFAULT_AVATAR_PATH} from '../../../environments/environment';
 
 @Component({
   selector: 'app-employee-info',
@@ -11,9 +12,12 @@ import {Employee} from '../../shared/entities';
 })
 export class EmployeeInfoComponent implements OnInit {
   employee: Employee;
+  defaultAvatar = DEFAULT_AVATAR_PATH;
 
-  constructor(private employeeService: EmployeeService,
-              private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private employeeService: EmployeeService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.pipe(
@@ -24,5 +28,4 @@ export class EmployeeInfoComponent implements OnInit {
       this.employee = employee;
     });
   }
-
 }
