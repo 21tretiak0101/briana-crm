@@ -8,8 +8,8 @@ import {
   ViewChild
 } from '@angular/core';
 import {
-  AVAILABLE_LANGUAGES, DEFAULT_LANGUAGE,
-  TranslationToken
+  AVAILABLE_LANGUAGES,
+  LanguageTokens
 } from '../../shared/service/language/languages';
 import {LanguageService} from '../../shared/service/language/language.service';
 import {FormControl, FormGroup} from '@angular/forms';
@@ -20,28 +20,26 @@ import {
 
 @Component({
   selector: 'app-language-settings',
-  templateUrl: './language-settings.component.html',
-  styleUrls: ['./language-settings.component.css']
+  templateUrl: './language-settings.component.html'
 })
 export class LanguageSettingsComponent implements
   OnInit,
   OnDestroy,
   AfterViewInit {
 
-  l: TranslationToken;
-  activeLanguage: string = DEFAULT_LANGUAGE;
   @ViewChild('language') languageRef: ElementRef;
+  @Input() tokens: LanguageTokens;
   availableLanguages = AVAILABLE_LANGUAGES;
-  form: FormGroup;
+  activeLanguageId: string;
   select: MaterialInstance;
+  form: FormGroup;
 
-  constructor(private lang: LanguageService) { }
+  constructor(private languageService: LanguageService) {
+    this.activeLanguageId = this.languageService.activeLanguageId;
+  }
 
   ngOnInit(): void {
     this.initForm();
-    this.activeLanguage = 'en';
-    this.l = this.lang.getCurrent();
-    console.log(this.availableLanguages);
   }
 
   ngAfterViewInit(): void {
@@ -54,17 +52,15 @@ export class LanguageSettingsComponent implements
 
   initForm(): void {
     this.form = new FormGroup({
-      language: new FormControl()
+      language: new FormControl(this.activeLanguageId)
     });
   }
 
   onSubmit() {
-    this.lang.switchTo(this.form.value.language);
-  }
-
-  func(x) {
-    const equal = this.activeLanguage === x.id;
-    console.log(x, equal);
-    return equal;
+    const {language} = this.form.value;
+    if (language && language !== this.activeLanguageId) {
+      this.activeLanguageId = language;
+      this.languageService.changeLanguage(this.form.value.language);
+    }
   }
 }

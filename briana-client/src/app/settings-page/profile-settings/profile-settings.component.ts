@@ -1,10 +1,12 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {TranslationToken} from '../../shared/service/language/languages';
+import {LanguageTokens} from '../../shared/service/language/languages';
 import {AuthService} from '../../shared/service/auth/auth.service';
 import {Employee} from '../../shared/entities';
 import {EmployeeService} from '../../shared/service/employee/employee.service';
 import {MaterialService} from '../../shared/service/material/material.service';
+import {SuccessComponent} from '../../shared/component/success/success.component';
+import {ResponsiveCircularLoaderComponent} from '../../shared/component/circular-loader/responsive-circular-loader/responsive-circular-loader.component';
 
 @Component({
   selector: 'app-profile-settings',
@@ -12,18 +14,26 @@ import {MaterialService} from '../../shared/service/material/material.service';
   styleUrls: ['./profile-settings.component.css']
 })
 export class ProfileSettingsComponent implements OnInit {
-  @Input() l: TranslationToken;
-  form: FormGroup;
+  @Input() tokens: LanguageTokens;
   authenticated: Employee;
-  loading = false;
-  success = false;
+  editable = true;
+  @ViewChild(SuccessComponent)
+  private successComponent: SuccessComponent;
+  @ViewChild(ResponsiveCircularLoaderComponent)
+  private circularLoader: ResponsiveCircularLoaderComponent;
+  form: FormGroup;
 
-  constructor(private auth: AuthService,
-              private employeeService: EmployeeService) { }
+  constructor(
+    private authService: AuthService,
+    private employeeService: EmployeeService
+  ) { }
 
   ngOnInit(): void {
-    this.authenticated = this.auth.getAuthenticated();
     this.initForm();
+    this.authService.authenticatedSub.subscribe(auth => {
+      this.authenticated = auth;
+      this.patchForm(this.authenticated);
+    });
   }
 
   initForm(): void {
@@ -37,7 +47,6 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.setSuccess();
     const value = this.form.value;
     const employee: Employee = {
       ...this.authenticated,
@@ -49,21 +58,21 @@ export class ProfileSettingsComponent implements OnInit {
         postcode: value.postcode
       }
     };
-  //  this.updateProfile(employee);
+    this.updateProfile(employee);
   }
 
   updateProfile(employee: Employee): void {
-    this.loading = true;
+    this.startLoading();
     this.employeeService.update(employee)
       .subscribe(
         updated => {
-        this.patchForm(updated);
-        this.loading = false;
-        this.setSuccess();
-      },
+          this.authService.update(updated);
+          this.patchForm(updated);
+          this.success();
+        },
         error => {
           MaterialService.toast(error);
-          this.loading = false;
+          this.endLoading();
         }
       );
   }
@@ -75,18 +84,22 @@ export class ProfileSettingsComponent implements OnInit {
       country: employee.address.country,
       city: employee.address.city,
       postcode: employee.address.postcode
-    });
+    }, {emitEvent: true});
     MaterialService.updateInputs();
   }
 
-  setSuccess(): void {
-    this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-      this.success = true;
-      setTimeout(() => {
-        this.success = false;
-      }, 2000);
-    }, 1000);
+  private startLoading(): void {
+    this.editable = false;
+    this.circularLoader.startLoading();
+  }
+
+  private endLoading(): void {
+    this.circularLoader.endLoading();
+    this.editable = true;
+  }
+
+  private success(): void {
+    this.circularLoader.endLoading();
+    this.successComponent.success(() => this.editable = true);
   }
 }

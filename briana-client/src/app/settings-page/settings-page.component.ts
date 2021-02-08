@@ -6,7 +6,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {LanguageService} from '../shared/service/language/language.service';
-import {TranslationToken} from '../shared/service/language/languages';
+import {LanguageTokens} from '../shared/service/language/languages';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../shared/service/auth/auth.service';
 import {Employee} from '../shared/entities';
@@ -18,21 +18,20 @@ import {Employee} from '../shared/entities';
 })
 export class SettingsPageComponent implements OnInit, OnDestroy {
   @ViewChild('language') languagesRef: ElementRef;
-  l: TranslationToken;
-  activeLanguage: string;
-
+  tokens: LanguageTokens;
   subscriber$: Subscription;
   authenticated: Employee;
 
-  constructor(private lang: LanguageService,
-              private auth: AuthService) { }
+  constructor(
+    private lang: LanguageService,
+    private authService: AuthService
+  ) {
+    this.authenticated = this.authService.authenticated;
+  }
 
   ngOnInit(): void {
-    this.authenticated = this.auth.getAuthenticated();
-    this.activeLanguage = this.lang.activeLanguage;
-    this.subscriber$ = this.lang.get().subscribe(tokens => {
-      this.l = tokens;
-      this.activeLanguage = this.lang.activeLanguage;
+    this.subscriber$ = this.lang.tokens.subscribe(tokens => {
+      this.tokens = tokens;
     });
   }
 

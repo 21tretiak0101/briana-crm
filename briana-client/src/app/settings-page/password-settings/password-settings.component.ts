@@ -3,18 +3,18 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  ValidatorFn, Validators
+  ValidatorFn,
+  Validators
 } from '@angular/forms';
-import {TranslationToken} from '../../shared/service/language/languages';
+import {LanguageTokens} from '../../shared/service/language/languages';
 
 @Component({
   selector: 'app-password-settings',
-  templateUrl: './password-settings.component.html',
-  styleUrls: ['./password-settings.component.css']
+  templateUrl: './password-settings.component.html'
 })
 export class PasswordSettingsComponent implements OnInit {
+  @Input() tokens: LanguageTokens;
   form: FormGroup;
-  @Input() l: TranslationToken;
 
   constructor() { }
 
