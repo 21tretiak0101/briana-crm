@@ -22,9 +22,9 @@ export class CreationHandlerComponent {
     private router: Router
   ) { }
 
-  save(entity): void {
+  save(entity: any, file?: File): void {
     this.startLoading();
-    this.creationService.save(entity).subscribe(
+    this.creationService.save(entity, file).subscribe(
       () => this.success(),
       error => this.error(error)
     );

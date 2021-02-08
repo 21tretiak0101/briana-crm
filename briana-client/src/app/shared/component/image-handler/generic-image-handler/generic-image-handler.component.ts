@@ -1,4 +1,12 @@
-import {Component, Host, Input, OnDestroy, ViewChild} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Host,
+  Input,
+  OnDestroy,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {ImageService} from '../../../service/image/image.service';
 import {ImageHandlerComponent} from '../image-handler.component';
 import {DEFAULT_PRODUCT_IMAGE_PATH} from '../../../../../environments/environment';
@@ -9,7 +17,7 @@ import {Subscription} from 'rxjs';
   template: `
     <app-image-handler
       [source]="source"
-      [defaultSource]="defaultImage"
+      [defaultSource]="defaultSource"
       (uploadImageEvent)="onUpload($event)"
       (removeImageEvent)="onRemove()"
     ></app-image-handler>
@@ -17,7 +25,9 @@ import {Subscription} from 'rxjs';
 })
 export class GenericImageHandlerComponent implements OnDestroy {
   @Input() source: string;
-  defaultImage: string = DEFAULT_PRODUCT_IMAGE_PATH;
+  @Input() defaultSource: string = DEFAULT_PRODUCT_IMAGE_PATH;
+  @Output() successUploadEvent = new EventEmitter<File>();
+  @Output() successRemoveEvent = new EventEmitter<void>();
   uploadSubscriber: Subscription;
   removeSubscriber: Subscription;
   @ViewChild(ImageHandlerComponent)
@@ -38,6 +48,7 @@ export class GenericImageHandlerComponent implements OnDestroy {
         () => {
           this.imageHandler.set(file);
           this.imageHandler.switchLoading();
+          this.successUploadEvent.emit(file);
         },
         error => {
           this.imageHandler.switchLoading();
@@ -53,6 +64,7 @@ export class GenericImageHandlerComponent implements OnDestroy {
         () => {
           this.imageHandler.remove();
           this.imageHandler.switchLoading();
+          this.successRemoveEvent.emit();
         },
         error => {
           this.imageHandler.switchLoading();

@@ -38,8 +38,7 @@ export class DynamicQuestion {
 
 @Component({
   selector: 'app-dynamic-question',
-  templateUrl: './dynamic-question.component.html',
-  styleUrls: ['./dynamic-question.component.css']
+  templateUrl: './dynamic-question.component.html'
 })
 
 export class DynamicQuestionComponent {

@@ -20,7 +20,7 @@ import {
 } from '../dynamic-question/dynamic-question.component';
 import {DynamicFormService} from '../../service/dynamic-question/dynamic-form.service';
 import {SuccessComponent} from '../success/success.component';
-import {CircularLoaderComponent} from '../circular-loader/circular-loader.component';
+import {ResponsiveCircularLoaderComponent} from '../circular-loader/responsive-circular-loader/responsive-circular-loader.component';
 
 @Component({
   selector: 'app-modal-handler',
@@ -35,18 +35,18 @@ export class ModalHandlerComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(SuccessComponent)
   private successComponent: SuccessComponent;
 
-  @ViewChild(CircularLoaderComponent)
-  private circularLoader: CircularLoaderComponent;
+  @ViewChild(ResponsiveCircularLoaderComponent)
+  private circularLoader: ResponsiveCircularLoaderComponent;
 
   materialModal: MaterialInstance;
   dynamicFormGroups: DynamicFormGroup[];
   editable = true;
 
-  constructor(private dynamicFormService: DynamicFormService) { }
+  constructor(private questionService: DynamicFormService) { }
 
   ngOnInit(): void {
     this.dynamicFormGroups = this.questionGroups.map(
-      this.dynamicFormService.toDynamicFormGroup
+      this.questionService.toDynamicFormGroup
     );
   }
 
@@ -66,7 +66,7 @@ export class ModalHandlerComponent implements AfterViewInit, OnDestroy, OnInit {
   onSubmit(): void {
     this.circularLoader.startLoading();
     this.submitEvent.emit(
-      this.dynamicFormService.getValues(this.dynamicFormGroups)
+      this.questionService.getValues(this.dynamicFormGroups)
     );
     this.editable = false;
   }
@@ -87,7 +87,7 @@ export class ModalHandlerComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   private patchValues(values: DynamicFormGroupValues): void {
-    this.dynamicFormService.patchValues(values, this.dynamicFormGroups);
+    this.questionService.patchValues(values, this.dynamicFormGroups);
     MaterialService.updateInputs();
   }
 }
