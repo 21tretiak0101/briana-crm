@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col s12">
+    <div class="input-field">
+      <i class="material-icons prefix">fingerprint</i>
+      <input [(ngModel)]="id" id="filterId" type="text">
+      <label for="filterId">Id</label>
+    </div>
+
+    <div class="input-field">
+      <i class="material-icons prefix">account_circle</i>
+      <input [(ngModel)]="name" id="filterName" type="text">
+      <label for="filterName">{{ 'username' | lang }}</label>
+    </div>
+
+    <div class="input-field">
+      <i class="material-icons prefix medium">email</i>
+      <input  [(ngModel)]="email" id="filterEmail" type="text">
+      <label for="filterEmail">{{ 'email' | lang }}</label>
+    </div>
+
+    <div class="center">
+      <button
+        (click)="submit()"
+        class="modal-action btn waves-effect deep-purple lighten-2"
+      >
+        {{ 'applyFilter' | lang }}
+      </button>
+    </div>
+  </div>
+</div>

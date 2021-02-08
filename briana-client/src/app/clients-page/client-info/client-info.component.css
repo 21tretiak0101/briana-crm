@@ -1,0 +1,17 @@
+i.client-info {
+    font-size: 35px
+}
+
+.client-photo {
+    width: 120px;
+    height: 120px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.info {
+    margin-bottom: 5px;
+}

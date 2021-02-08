@@ -1,0 +1,19 @@
+<ng-container *ngIf="categories">
+  <div class="collection with-header">
+    <a *ngFor="let category of categories"
+       [routerLink]="['/categories', category.id]"
+       class="collection-item avatar"
+    >
+      <img alt="" class="circle" src="{{ category.imageSrc || defaultImage }}">
+      <span class="title black-text bold">
+        {{ category.name }}
+      </span>
+      <p class="grey-text">
+        {{ category.description}}
+      </p>
+      <div class="secondary-content">
+        <i class="material-icons">navigate_next</i>
+      </div>
+    </a>
+  </div>
+</ng-container>

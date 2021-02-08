@@ -1,0 +1,8 @@
+<div [formGroup]="formGroup">
+  <div class="input-field">
+    <label [attr.for]="question.key">{{ question.label | lang }}</label>
+    <i *ngIf="question.icon" class="material-icons prefix">{{ question.icon }}</i>
+    <input [formControlName]="question.key" [id]="question.key" [type]="'text'">
+  </div>
+</div>
+

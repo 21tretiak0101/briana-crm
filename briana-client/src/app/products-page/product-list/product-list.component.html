@@ -1,0 +1,35 @@
+<div class="row">
+  <div *ngFor="let product of products" class="col s3">
+    <div class="card small collection-item">
+      <div class="card-image waves-effect waves-block waves-light">
+        <a [routerLink]="['/products', product.id]">
+          <img [src]="product.imageSrc || defaultImage" alt="" />
+          <div class="card-title black-text">
+            {{ product.name }}
+          </div>
+        </a>
+      </div>
+      <div class="card-content">
+        <div class="card-title activator">
+          <i class="material-icons right">more_horiz</i>
+          <div class="category-info black-text">
+            <i class="material-icons left grey-text">navigate_next</i>
+            <a [routerLink]="['/categories', product.category.id]" class="black-text">
+              {{ product.category.name }}
+            </a>
+          </div>
+        </div>
+        <div class="price">
+          <i class="material-icons left grey-text">toll</i>
+          {{ product.price }}$
+        </div>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">{{ product.name}}
+          <i class="material-icons right">close</i>
+        </span>
+        <p>{{ product.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

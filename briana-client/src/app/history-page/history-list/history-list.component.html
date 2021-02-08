@@ -1,0 +1,26 @@
+<ng-container *ngIf="orders; else defaultOrders">
+  <ul #collapsible class="collapsible popout">
+    <li *ngFor="let order of orders">
+      <div class="collapsible-header">
+        <div>
+          <i class="material-icons left">shopping_cart</i>
+          {{ order.date | dateTime }}
+        </div>
+        <div class="blue-text">
+          {{ order | totalPrice }}$
+        </div>
+      </div>
+      <div class="collapsible-body">
+        <div *ngFor="let product of order.products">
+          {{ product.name}}.............. {{ product.price}}$
+        </div>
+      </div>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #defaultOrders>
+  <div class="center">
+    <img alt="not_found" class="search" src="/assets/search.png">
+  </div>
+</ng-template>

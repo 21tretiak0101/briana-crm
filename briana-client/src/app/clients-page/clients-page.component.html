@@ -1,0 +1,55 @@
+<div class="page-title">
+  <h4>{{ 'cl' | lang }}</h4>
+  <div>
+    <button
+      (click)="isFilterVisible = !isFilterVisible"
+      class="btn modal-action waves-effect grey lighten-1"
+    >
+      <i class="material-icons">search</i>
+    </button>
+    <button
+      routerLink="/clients/new"
+      class="btn modal-action waves-effect green"
+    >
+      <i class="material-icons">person_add</i>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s4">
+    <app-client-filter
+      (filterEventEmitter)="applyFilter($event)"
+      *ngIf="isFilterVisible"
+    ></app-client-filter>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s4">
+    <app-clients-list
+      *ngIf="clients"
+      [clients]="clients"
+    ></app-clients-list>
+    <div [ngSwitch]="isLoading" class="center">
+
+      <button
+        (click)="onLoadMore()"
+        *ngSwitchCase="false"
+        class="modal-action btn waves-effect deep-purple lighten-2"
+      >
+        {{ 'more' | lang }}
+        <i class="material-icons right">expand_more</i>
+      </button>
+
+      <app-circular-loader *ngSwitchCase="true"></app-circular-loader>
+    </div>
+  </div>
+  <div class="col s8">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+
+

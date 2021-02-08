@@ -1,0 +1,51 @@
+<div class="page-title">
+  <h4>{{ employee.name }}</h4>
+</div>
+<div class="row">
+  <div class="col s5">
+    <div class="card">
+      <div class="card-content">
+        <div class="center">
+          <img [src]="employee.imgSrc || defaultAvatar" alt="" class="photo">
+          <div class="info">
+            {{ employee.name}} <span class="blue-text">(#{{ employee.id }})</span>
+          </div>
+          <div class="grey-text">
+            {{ employee.positionName }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <div class="card-header">
+          <h5>{{ 'employeeData' | lang }}</h5>
+        </div>
+        <div class="row">
+          <div class="col s12 grey-text">
+            <div class="info">
+              <i class="material-icons left">email</i>
+              {{ employee.email }}
+            </div>
+            <div class="info">
+              <i class="material-icons left">phone</i>
+              {{ employee.phone }}
+            </div>
+            <div *ngIf="employee.address" class="info">
+              <i class="material-icons left">location_on</i>
+              {{ employee.address | address }}
+            </div>
+            <div *ngIf="employee.description" class="info">
+              <i class="material-icons left">info</i>
+              {{ employee.description }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s7">
+    <app-employee-activity></app-employee-activity>
+    <app-employee-analytics></app-employee-analytics>
+  </div>
+</div>

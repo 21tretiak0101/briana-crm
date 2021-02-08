@@ -5,6 +5,7 @@ import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.ClassicConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
@@ -20,6 +21,7 @@ import javax.sql.DataSource;
 @Configuration
 @RequiredArgsConstructor
 @PropertySource("classpath:conf/flyway.development.conf")
+@Profile("development")
 public class FlywayConfiguration {
 
     private final DataSource dataSource;
@@ -33,6 +35,9 @@ public class FlywayConfiguration {
         configuration.setLocationsAsStrings(
                 environment.getProperty("flyway.locations")
         );
-        return new Flyway(configuration);
+        Flyway flyway = new Flyway(configuration);
+        flyway.clean();
+        flyway.migrate();
+        return flyway;
     }
 }

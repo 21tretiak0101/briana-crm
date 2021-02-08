@@ -1,0 +1,25 @@
+<div class="page-title">
+  <h4>{{ 'hs' | lang }}</h4>
+  <button
+      #tooltip
+      (click)="isFilterVisible = !isFilterVisible"
+      class="btn btn-small"
+      data-position="left"
+  >
+    <i class="material-icons">filter_list</i>
+  </button>
+</div>
+
+<app-history-filter
+  (filterEventEmitter)="applyFilter($event)"
+  *ngIf="isFilterVisible"
+></app-history-filter>
+
+<div *ngIf="!loading; else loadingBlock">
+  <app-history-list [orders]="orders"></app-history-list>
+</div>
+
+<ng-template #loadingBlock>
+  <app-circular-loader></app-circular-loader>
+</ng-template>
+

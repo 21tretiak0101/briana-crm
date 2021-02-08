@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-content">
+    <ng-content></ng-content>
+    <button
+      (click)="submitEvent.emit()"
+      [disabled]="!editable"
+      class="modal-action btn waves-effect deep-purple lighten-2"
+    >
+      {{ 'create' | lang  }}
+    </button>
+    <div class="right">
+      <app-responsive-circular-loader></app-responsive-circular-loader>
+      <app-success></app-success>
+    </div>
+  </div>
+</div>
+

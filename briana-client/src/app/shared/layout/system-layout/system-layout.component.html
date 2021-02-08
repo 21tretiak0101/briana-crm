@@ -1,0 +1,59 @@
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper black">
+      <a routerLink="/dashboard">
+        <img alt="BrianaCRM" class="brand-logo" src="/assets/briana.jpg">
+      </a>
+      <div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div>
+  <ul class="sidenav a-sidenav">
+    <li>
+      <div class="user-view">
+        <a [routerLink]="['/employees', authenticated.id]">
+          <img [src]="authenticated.imgSrc || defaultAvatar" alt="" class="circle">
+        </a>
+        <a [routerLink]="['/employees', authenticated.id]">
+          <span class="name black-text">
+            {{ authenticated.name }}
+          </span>
+        </a>
+        <a [routerLink]="['/employees', authenticated.id]">
+          <span class="email grey-text">
+            {{ authenticated.positionName }}
+            <br>
+            <span class="blue-text">{{ authenticated.email }}</span>
+          </span>
+        </a>
+      </div>
+    </li>
+    <li
+      *ngFor="let route of routes"
+      class="bold"
+      routerLinkActive="active"
+    >
+      <a
+        *ngIf="route.id"
+        routerLink="{{ '/' + route.path }}"
+        class="waves-effect waves-light"
+      >
+        <i class="material-icons left">{{ route.icon }}</i>
+        {{ route.name }}
+      </a>
+    </li>
+    <li class="bold last">
+      <a (click)="logout($event)" class="waves-effect waves-light">
+        {{ tokens.exit }}
+        <i class="material-icons left">exit_to_app</i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<main class="content">
+  <router-outlet></router-outlet>
+</main>

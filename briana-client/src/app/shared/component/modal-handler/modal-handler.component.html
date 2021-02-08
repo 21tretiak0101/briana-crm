@@ -1,0 +1,42 @@
+<div #modal class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <form
+            *ngFor="let dynamicFormGroup of dynamicFormGroups"
+            [formGroup]="dynamicFormGroup.formGroup">
+            <div *ngFor="let question of dynamicFormGroup.questions" class="row">
+              <app-dynamic-question
+                [formGroup]="dynamicFormGroup.formGroup"
+                [question]="question"
+              ></app-dynamic-question>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="left">
+      <app-success></app-success>
+      <app-responsive-circular-loader></app-responsive-circular-loader>
+    </div>
+    <button
+      (click)="onSubmit()"
+      [disabled]="!editable"
+      class="modal-action btn waves-effect deep-purple lighten-2"
+    >
+      {{ 'save' | lang }}
+      <i class="material-icons right"></i>
+    </button>
+    <button
+      (click)="close()"
+      [disabled]="!editable"
+      class="modal-action btn waves-effect red lighten-2"
+    >
+      {{ 'close' | lang }}
+      <i class="material-icons right"></i>
+    </button>
+  </div>
+</div>

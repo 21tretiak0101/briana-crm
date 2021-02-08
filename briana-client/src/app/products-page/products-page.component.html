@@ -1,0 +1,39 @@
+<div class="page-title">
+  <h4>{{ 'pr' | lang }}</h4>
+  <div>
+    <button
+      class="btn modal-action waves-effect"
+    >
+      <i class="material-icons">filter_list</i>
+    </button>
+    <button
+      class="waves-effect waves-light btn"
+      routerLink="/categories"
+    >
+      <i class="material-icons">library_books</i>
+    </button>
+    <button
+      class="waves-effect waves-light btn green darken-2"
+      routerLink="/products/new"
+    >
+      <i class="material-icons">add</i>
+    </button>
+    <button
+      class="waves-effect waves-light btn green darken-2"
+      routerLink="/categories/new"
+    >
+      <i class="material-icons">library_add</i>
+    </button>
+  </div>
+</div>
+
+<ng-container *ngIf="products$ | async as products; else loader">
+  <ng-container>
+    <app-product-list [products]="products"></app-product-list>
+  </ng-container>
+</ng-container>
+
+<ng-template #loader>
+  <app-circular-loader></app-circular-loader>
+</ng-template>
+

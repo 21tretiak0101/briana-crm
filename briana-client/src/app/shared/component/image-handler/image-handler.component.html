@@ -1,0 +1,36 @@
+<div class="center">
+  <img [src]="source || defaultSource || defaultImage" alt="avatar" class="photo">
+  <input
+      #inputElement
+      (change)="onUpload($event)"
+      class="dn"
+      type="file"
+      accept=".png, .jpg, .jpeg"
+  >
+  <div>
+    <app-circular-loader *ngIf="loading"></app-circular-loader>
+  </div>
+
+  <button
+    (click)="trigger()"
+    [disabled]="loading"
+    class="modal-action btn waves-effect deep-purple lighten-2"
+    type="submit"
+  >
+    <i class="material-icons right">cloud_upload</i>
+    {{ 'edit' | lang }}
+  </button>
+  <br>
+
+  <button
+    (click)="onRemove()"
+    *ngIf="source && source !== defaultImage"
+    [disabled]="loading"
+    class="modal-action btn waves-effect red lighten-2"
+    type="submit"
+  >
+    <i class="material-icons right">delete</i>
+    {{ 'rm' | lang }}
+  </button>
+</div>
+

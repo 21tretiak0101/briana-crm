@@ -1,0 +1,36 @@
+<div class="center">
+  <h3>{{ 'posNew' | lang }}</h3>
+</div>
+<div class="container">
+  <app-creation-handler
+    (submitEvent)="onSubmit()"
+  >
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="input-field">
+        <input formControlName="name" id="name" type="text">
+        <label for="name">{{ 'name' | lang }}</label>
+      </div>
+
+      <div class="input-field">
+        <textarea
+          class="materialize-textarea"
+          formControlName="description"
+          id="description"
+        ></textarea>
+        <label for="description">{{ 'desc' | lang }}</label>
+      </div>
+      <div class="input-field">
+        <select #permissions formControlName="permissions"  id="permissions" multiple>
+          <option
+            *ngFor=" let permission of availablePermissions$ | async"
+            [ngValue]="permission"
+          >
+            {{ permission }}
+          </option>
+        </select>
+        <label for="permissions">{{ 'permissions' | lang }}</label>
+      </div>
+    </form>
+  </app-creation-handler>
+</div>
+

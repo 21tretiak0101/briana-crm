@@ -1,0 +1,24 @@
+<ng-container *ngIf="employees">
+  <div class="collection with-header">
+    <a *ngFor="let employee of employees"
+       [routerLink]="['/employees', employee.id]"
+       class="collection-item avatar"
+    >
+      <img [src]="employee.imgSrc || defaultAvatar" alt="" class="circle">
+      <span class="title black-text bold">
+        {{ employee.name }}
+      </span>
+      <p class="grey-text">
+        {{ employee.positionName}}
+      </p>
+      <p class="blue-text">
+        {{ employee.email }}
+      </p>
+      <div class="secondary-content">
+        <i class="material-icons">navigate_next</i>
+      </div>
+    </a>
+  </div>
+</ng-container>
+
+

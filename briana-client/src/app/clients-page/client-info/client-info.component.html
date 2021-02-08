@@ -1,0 +1,72 @@
+<div *ngIf="client; else defaultInfo" class="card">
+  <div class="card-content">
+    <div class="row">
+      <div>
+        <div class="col s3">
+          <div class="client-photo grey lighten-2">
+            <h4>
+              {{ clientImage() }}
+            </h4>
+          </div>
+        </div>
+        <div class="col s7">
+          <div class="info">
+            <h4>
+              {{ client.name }}
+              <i
+                (click)="clientModal.open()"
+                class="material-icons grey-text waves-effect waves-circle"
+              >edit</i>
+            </h4>
+          </div>
+          <div class="info">
+            <i class="material-icons left">email</i>
+            {{ client.email }}
+          </div>
+          <div class="info">
+            <i class="material-icons left">phone</i>
+            {{ client.phone }}
+          </div>
+          <div *ngIf="client.address?.country" class="info">
+            <i class="material-icons left">location_on</i>
+            {{ client.address | address }}
+          </div>
+          <div *ngIf="client.description" class="info">
+            <i class="material-icons left">info</i>
+            {{ client.description }}
+          </div>
+        </div>
+        <div class="col s2 blue-text">
+          #{{ client.id }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <ul #tabs class="tabs">
+            <li class="tab col s6">
+              <a class="active" href="#overview">{{ 'overview' | lang }}</a>
+            </li>
+            <li class="tab col s6">
+              <a href="#orders">{{ 'orders' | lang }}</a>
+            </li>
+          </ul>
+        </div>
+        <div #overview class="col s12" id="overview" >
+          <app-client-overview [clientId]="client.id"></app-client-overview>
+        </div>
+        <div class="col s12" id="orders">
+          <app-client-orders [orders]="client.orders"></app-client-orders>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #defaultInfo>
+  <app-default-client-info></app-default-client-info>
+</ng-template>
+
+<app-client-modal
+  (updateClientEvent)="onUpdate($event)"
+  [client]="client"
+></app-client-modal>

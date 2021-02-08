@@ -1,0 +1,13 @@
+.photo {
+    border-radius: 100px;
+    height: 200px;
+    width: 200px;
+}
+
+.btn {
+    margin-bottom: 10px;
+}
+
+.dn {
+    display: none;
+}

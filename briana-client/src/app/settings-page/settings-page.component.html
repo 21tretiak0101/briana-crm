@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="center">
+    <h1>{{ tokens.st }}</h1>
+  </div>
+  <div class="row">
+    <div class="col s8">
+      <app-profile-settings [tokens]="tokens"></app-profile-settings>
+      <app-language-settings [tokens]="tokens"></app-language-settings>
+      <app-password-settings [tokens]="tokens"></app-password-settings>
+    </div>
+    <div class="col s4">
+      <app-avatar-settings [avatarSrc]="authenticated.imgSrc"></app-avatar-settings>
+    </div>
+  </div>
+</div>

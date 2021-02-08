@@ -1,0 +1,55 @@
+<div class="page-title">
+  <h4>
+    <a [routerLink]="['/categories', product.category.id]" class="blue-text">
+      {{ product.category.name}}
+    </a>
+    <i class="material-icons">navigate_next</i>
+    {{ product.name }}
+  </h4>
+</div>
+
+<div class="row">
+  <div class="col s7">
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content">
+            <i class="material-icons left">description</i>
+            {{ product.description }}
+          </div>
+        </div>
+      </div>
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content price">
+            <i class="material-icons left price">toll</i>
+            {{ product.price }}$
+          </div>
+        </div>
+      </div>
+      <div class="col s12">
+        <button
+          (click)="onEdit()"
+          [disabled]="isLoading || isSuccess"
+          class="modal-action btn waves-effect deep-purple lighten-2"
+        >
+          {{ 'edit' | lang }}
+          <i class="material-icons right"></i>
+        </button>
+        <button
+          (click)="onRemove()"
+          [disabled]="isLoading || isSuccess"
+          class="modal-action btn waves-effect red lighten-2"
+        >{{ 'rm' | lang}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="col s5">
+    <app-product-image-form [source]="product.imageSrc"></app-product-image-form>
+  </div>
+</div>
+
+<app-product-modal
+  (updateProductEvent)="onUpdate($event)"
+  [product]="product"
+></app-product-modal>

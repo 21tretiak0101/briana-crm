@@ -1,0 +1,52 @@
+<div class="container">
+  <app-creation-handler
+    (submitEvent)="onSubmit()"
+  >
+    <div class="card-title">
+      {{ 'clNew' | lang }}
+    </div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="input-field">
+        <input formControlName="name" id="name" type="text">
+        <label for="name">{{ 'name' | lang }}</label>
+      </div>
+
+      <div class="input-field">
+        <input formControlName="email" id="email" type="email">
+        <label for="email">{{ 'email' | lang }}</label>
+      </div>
+
+      <div class="input-field">
+        <input formControlName="phone" id="phone" type="text">
+        <label for="phone">{{ 'phone' | lang }}</label>
+      </div>
+
+      <div class="input-field">
+        <textarea
+          class="materialize-textarea"
+          formControlName="description"
+          id="description"
+        ></textarea>
+        <label for="description">{{ 'desc' | lang }}</label>
+      </div>
+
+      <div formGroupName="address">
+        <div class="input-field">
+          <input formControlName="country" id="country" type="text">
+          <label for="country">{{ 'country' | lang }}</label>
+        </div>
+
+        <div class="input-field">
+          <input formControlName="city" id="city" type="text">
+          <label for="city">{{ 'city' | lang }}</label>
+        </div>
+
+        <div class="input-field">
+          <input formControlName="postcode" id="postcode" type="text">
+          <label for="postcode">{{ 'postcode' | lang }}</label>
+        </div>
+      </div>
+    </form>
+  </app-creation-handler>
+</div>
+

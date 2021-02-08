@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col s12">
+    <a
+      *ngFor="let client of clients "
+      [routerLink]="['/clients', client.id]"
+    >
+      <div class="card" routerLinkActive="z-depth-2 grey lighten-3">
+        <div class="card-content">
+          <p class="right">#{{ client.id }}</p>
+          <div class="info">
+            <i class="material-icons left">account_circle</i>
+            {{ client.name }}
+          </div>
+          <div class="info">
+            <i class="material-icons left">email</i>
+            {{ client.email }}
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

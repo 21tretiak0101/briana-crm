@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ tokens.profile }} </span>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="input-field">
+        <input formControlName="name" id="name" type="text">
+        <label for="name">{{ tokens.username }}</label>
+      </div>
+      <div class="input-field">
+        <input formControlName="country" id="country" type="text">
+        <label for="country">{{ tokens.country }}</label>
+      </div>
+      <div class="input-field">
+        <input formControlName="city" id="city" type="text">
+        <label for="city">{{ tokens.city }}</label>
+      </div>
+      <div class="input-field">
+        <input formControlName="postcode" id="postcode" type="text">
+        <label for="postcode">{{ tokens.postcode }}</label>
+      </div>
+      <div class="input-field">
+        <textarea
+          class="materialize-textarea"
+          formControlName="bio"
+          id="bio"
+        ></textarea>
+        <label for="bio">{{ tokens.bio }}</label>
+      </div>
+      <button
+        [disabled]="form.invalid || !editable"
+        class="modal-action btn waves-effect deep-purple lighten-2"
+        type="submit"
+      >
+        {{ tokens.save_up }}
+      </button>
+      <div class="right">
+        <app-responsive-circular-loader></app-responsive-circular-loader>
+        <app-success></app-success>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ tokens.language }}</span>
+    <form (submit)="onSubmit()" [formGroup]="form">
+      <div class="input-field">
+        <select #language formControlName="language" id="language">
+          <option
+            *ngFor="let language of availableLanguages;"
+            [value]="language.id"
+          >
+            {{ language.name }}
+          </option>
+        </select>
+        <label for="language"></label>
+      </div>
+
+      <button
+        class="modal-action btn waves-effect deep-purple lighten-2"
+        type="submit"
+      >
+        {{ 'save' | lang }}
+      </button>
+    </form>
+  </div>
+</div>
