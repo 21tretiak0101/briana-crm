@@ -3,8 +3,12 @@ import {ImageHandlerComponent} from '../../../shared/component/image-handler/ima
 
 @Component({
   selector: 'app-product-image',
-  templateUrl: './product-image.component.html',
-  styleUrls: ['./product-image.component.css']
+  template: `
+    <app-image-handler
+      (removeImageEvent)="onRemove()"
+      (uploadImageEvent)="onUpload($event)"
+    ></app-image-handler>
+  `
 })
 export class ProductImageComponent {
   @Output() fileUploadEvent = new EventEmitter<File>();
