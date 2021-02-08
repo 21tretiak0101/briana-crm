@@ -9,6 +9,5 @@ import {DEFAULT_PRODUCT_IMAGE_PATH} from '../../../environments/environment';
 })
 export class ProductListComponent {
   @Input() products: Product[];
-
   defaultImage: string = DEFAULT_PRODUCT_IMAGE_PATH;
 }

@@ -11,15 +11,17 @@ import {ProductModalComponent} from '../product-modal/product-modal.component';
   styleUrls: ['./product-info.component.css']
 })
 export class ProductInfoComponent implements OnInit {
+  @ViewChild(ProductModalComponent, {static: true})
+  private productModal: ProductModalComponent;
   product: Product;
   isLoading: any;
   isSuccess: any;
-  @ViewChild(ProductModalComponent, {static: true})
-  private productModal: ProductModalComponent;
 
-  constructor(private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private productService: ProductService) { }
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private productService: ProductService
+  ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.pipe(
