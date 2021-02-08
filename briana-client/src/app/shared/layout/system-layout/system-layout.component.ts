@@ -34,6 +34,9 @@ export class SystemLayoutComponent implements OnInit {
         return link;
       });
     });
+    this.authService.authenticatedSub.subscribe(authenticated => {
+      this.authenticated = authenticated;
+    });
   }
 
   logout(event: Event) {

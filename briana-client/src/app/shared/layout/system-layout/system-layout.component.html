@@ -2,7 +2,7 @@
   <nav>
     <div class="nav-wrapper black">
       <a routerLink="/dashboard">
-        <img alt="BrianaCRM" class="brand-logo" src="/assets/logo/briana.jpg">
+        <img alt="BrianaCRM" class="brand-logo" src="/src/assets/briana.jpg">
       </a>
       <div>
       </div>
@@ -38,8 +38,8 @@
     >
       <a
         *ngIf="route.id"
-        class="waves-effect waves-light"
         routerLink="{{ '/' + route.path }}"
+        class="waves-effect waves-light"
       >
         <i class="material-icons left">{{ route.icon }}</i>
         {{ route.name }}
