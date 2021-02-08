@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ProductFormComponent} from './product-form.component';
+import {DashboardPageComponent} from './dashboard-page.component';
 
-describe('PositionFormComponent', () => {
-  let component: ProductFormComponent;
-  let fixture: ComponentFixture<ProductFormComponent>;
+describe('OverviewPageComponent', () => {
+  let component: DashboardPageComponent;
+  let fixture: ComponentFixture<DashboardPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductFormComponent ]
+      declarations: [ DashboardPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductFormComponent);
+    fixture = TestBed.createComponent(DashboardPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
