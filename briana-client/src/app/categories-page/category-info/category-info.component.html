@@ -1,0 +1,44 @@
+<div class="page-title">
+  <h4>
+    <a class="blue-text" routerLink="/categories">
+      {{ 'ct' | lang }}
+    </a>
+    <i class="material-icons">navigate_next</i>
+    {{ category.name }}
+  </h4>
+</div>
+<div class="row">
+  <div class="col s7">
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content">
+            <i class="material-icons left">description</i>
+            {{ category.description }}
+          </div>
+        </div>
+      </div>
+      <div class="col s12">
+        <button
+          (click)="onEdit()"
+          [disabled]="isLoading || isSuccess"
+          class="modal-action btn waves-effect deep-purple lighten-2"
+        >
+          {{ 'edit' | lang }}
+          <i class="material-icons right"></i>
+        </button>
+        <button
+          (click)="onRemove()"
+          [disabled]="isLoading || isSuccess"
+          class="modal-action btn waves-effect red lighten-2"
+        >{{ 'rm' | lang}}</button>
+      </div>
+    </div>
+    <app-category-products [products]="products$ | async"></app-category-products>
+  </div>
+  <div class="col s5">
+    <app-product-image-form [source]="category.imageSrc"></app-product-image-form>
+  </div>
+</div>
+<app-category-edit-modal [category]="category"></app-category-edit-modal>
+

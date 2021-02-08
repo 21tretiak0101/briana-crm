@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CategoryEditModalComponent} from './category-edit-modal.component';
+import {CategoriesPageComponent} from './categories-page.component';
 
-describe('CategoryEditModalComponent', () => {
-  let component: CategoryEditModalComponent;
-  let fixture: ComponentFixture<CategoryEditModalComponent>;
+describe('CategoriesPageComponent', () => {
+  let component: CategoriesPageComponent;
+  let fixture: ComponentFixture<CategoriesPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CategoryEditModalComponent ]
+      declarations: [ CategoriesPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CategoryEditModalComponent);
+    fixture = TestBed.createComponent(CategoriesPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

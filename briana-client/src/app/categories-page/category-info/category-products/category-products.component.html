@@ -1,0 +1,19 @@
+<ng-container *ngIf="products">
+  <div class="collection with-header">
+    <a *ngFor="let product of products"
+       [routerLink]="['/products', product.id]"
+       class="collection-item avatar"
+    >
+      <img [src]="product.imageSrc || defaultImage" alt="" class="circle">
+      <span class="title black-text bold">
+        {{ product.name }}
+      </span>
+      <p class="grey-text">
+        {{ product.price}}$
+      </p>
+      <div class="secondary-content">
+        <i class="material-icons">navigate_next</i>
+      </div>
+    </a>
+  </div>
+</ng-container>

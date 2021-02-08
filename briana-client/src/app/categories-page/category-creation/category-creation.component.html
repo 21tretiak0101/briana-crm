@@ -1,12 +1,27 @@
 <div class="container">
   <div class="center">
-    <h1>{{ 'ctNew' | lang }}</h1>
+    <h3>{{ 'ctNew' | lang }}</h3>
   </div>
   <div class="row">
     <div class="col s8">
-      <app-category-details
-        (submitEvent)="onSubmit($event)"
-      ></app-category-details>
+      <app-creation-handler
+        (submitEvent)="onSubmit()"
+      >
+        <form [formGroup]="form">
+          <div class="input-field">
+            <input formControlName="name" id="name" type="text">
+            <label for="name">{{ 'name' | lang }}</label>
+          </div>
+          <div class="input-field">
+            <textarea
+              class="materialize-textarea"
+              formControlName="description"
+              id="description"
+            ></textarea>
+            <label for="description">{{ 'desc' | lang }}</label>
+          </div>
+        </form>
+      </app-creation-handler>
     </div>
     <div class="col s4">
       <app-emitting-image-handler
