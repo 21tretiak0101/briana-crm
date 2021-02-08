@@ -3,17 +3,17 @@
     <div class="col order">
       <div class="input-field inline order-position-input">
         <input [(ngModel)]="orderNumber" id="number" min="1" type="text">
-        <label for="number">Номер заказа</label>
+        <label for="number">{{ 'orderNumber' | lang }}</label>
       </div>
     </div>
     <div class="col filter-pickers">
       <div class="input-field">
         <input #start id="start" type="text">
-        <label for="start">Начало</label>
+        <label for="start">{{ 'start' | lang }}</label>
       </div>
       <div class="input-field">
         <input #end id="end" type="text">
-        <label for="end">Конец</label>
+        <label for="end">{{ 'end' | lang }}</label>
       </div>
     </div>
   </div>
@@ -22,6 +22,6 @@
     [disabled]="!isValid"
     class="btn waves-effect wavers-light btn-small"
   >
-    Применить фильтр
+    {{ 'applyFilter' | lang }}
   </button>
 </div>

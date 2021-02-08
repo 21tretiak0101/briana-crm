@@ -15,19 +15,16 @@ import {
 
 @Component({
   selector: 'app-history-filter',
-  templateUrl: './history-filter.component.html',
-  styleUrls: ['./history-filter.component.css']
+  templateUrl: './history-filter.component.html'
 })
 export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
-  @Output() filterEventEmitter = new EventEmitter<Filter>();
-  orderNumber: number;
   @ViewChild('start') startRef: ElementRef;
   @ViewChild('end') endRef: ElementRef;
+  @Output() filterEventEmitter = new EventEmitter<Filter>();
   startDatepicker: Datepicker;
   endDatepicker: Datepicker;
+  orderNumber: number;
   isValid = true;
-
-  constructor() { }
 
   ngOnDestroy(): void {
     this.startDatepicker.destroy();

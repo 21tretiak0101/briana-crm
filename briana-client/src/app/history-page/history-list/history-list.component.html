@@ -7,15 +7,12 @@
           {{ order.date | dateTime }}
         </div>
         <div class="blue-text">
-          Total: {{ computePrice(order) }} $
+          {{ order | totalPrice }}$
         </div>
       </div>
       <div class="collapsible-body">
         <div *ngFor="let product of order.products">
           {{ product.name}}.............. {{ product.price}}$
-        </div>
-        <div>
-          Total: {{ computePrice(order) }}
         </div>
       </div>
     </li>
@@ -27,30 +24,3 @@
     <img alt="not_found" class="search" src="/assets/search.png">
   </div>
 </ng-template>
-
-<!--<div #modal class="modal modal-fixed-footer" id="order-list">
-  <div *ngIf="orders" class="modal-content">
-    <h4 class="mb1">Заказ №5</h4>
-    <table class="highlight">
-      <thead>
-      <tr>
-        <th>Название</th>
-        <th>Цена</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr *ngFor="let product of selectedOrder.products">
-        <td>{{ product.name }}</td>
-        <td>{{ product.price }}</td>
-      </tr>
-      </tbody>
-    </table>
-    <div class="order-summary">
-      <p>Общая стоимость <strong>22 231 руб.</strong></p>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button (click)="closeModal()" class="modal-action waves-effect waves-black btn-flat">Закрыть</button>
-  </div>
-</div>-->
