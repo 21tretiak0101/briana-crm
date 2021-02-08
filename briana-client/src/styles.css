@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+@import "~materialize-css/dist/css/materialize.min.css";
+@import "theme/styles/styles.min.css";
+
+:root {
+    --font: 'Montserrat', sans-serif;
+    --radius: 15px;
+}
+
+html {
+    font-family: var(--font);
+}
+
+input[type="text"] {
+    font-family: var(--font);
+}
+
+textarea {
+    font-family: var(--font);
+}
+
+.btn {
+    text-transform: none;
+    font-family: var(--font);
+    border-radius: 12px;
+}
+
+.card {
+    border-radius: var(--radius);
+}
+
+.card-image {
+    border-radius: var(--radius) !important;
+}
+
+.modal {
+    border-radius: var(--radius);
+}
+
+.collection {
+    border-radius: var(--radius);
+}

@@ -1,22 +1,17 @@
-import { Component } from '@angular/core';
-import {TestService} from '../service/test.service';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from './shared/service/auth/auth.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: '<router-outlet></router-outlet>'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  constructor(private auth: AuthService) { }
 
-  constructor(private service: TestService) { }
-
-  title = 'briana-client';
-  hello = '';
-
-  click() {
-    this.service.getMessage().subscribe((message) => {
-      console.log(message);
-      this.hello = message.response;
-    })
+  ngOnInit(): void {
+    const token = localStorage.getItem('auth-token');
+    if (token) {
+      this.auth.setToken(token);
+    }
   }
 }
