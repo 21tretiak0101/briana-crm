@@ -2,9 +2,6 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-page',
-  templateUrl: './dashboard-page.component.html',
-  styleUrls: ['./dashboard-page.component.css']
+  templateUrl: './dashboard-page.component.html'
 })
-export class DashboardPageComponent {
-  constructor() { }
-}
+export class DashboardPageComponent { }
