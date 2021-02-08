@@ -3,11 +3,8 @@ import {ImageService} from '../image.service';
 import {Observable} from 'rxjs';
 import {CategoryService} from '../../category/category.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CategoryImageService extends ImageService {
-
   constructor(private categoryService: CategoryService) {
     super();
   }

@@ -13,7 +13,7 @@ export class DynamicFormService {
   toDynamicFormGroup(questionGroup: DynamicQuestionGroup): DynamicFormGroup {
     const formGroup = new FormGroup(
       questionGroup.questions.reduce((group, question) => {
-        group[question.key] = new FormControl();
+        group[question.key] = new FormControl('');
         return group;
       }, {}));
     return {

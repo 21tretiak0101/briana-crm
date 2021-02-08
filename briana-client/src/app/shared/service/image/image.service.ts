@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {MaterialService} from '../material/material.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export abstract class ImageService {
   abstract remove(): Observable<any>;
 

@@ -6,10 +6,11 @@ import {DEFAULT_LANGUAGE, LanguageTokens, TOKENS} from './languages';
   providedIn: 'root',
 })
 export class LanguageService {
-  actualTokens: LanguageTokens = this.generateTokens(DEFAULT_LANGUAGE.id);
+  activeTokens: LanguageTokens = this.generateTokens(DEFAULT_LANGUAGE.id);
+  activeLanguageId = DEFAULT_LANGUAGE.id;
 
   private behaviorSubject = new BehaviorSubject<LanguageTokens>(
-    this.actualTokens
+    this.activeTokens
   );
 
   get tokens(): Observable<LanguageTokens> {
@@ -17,12 +18,13 @@ export class LanguageService {
   }
 
   changeLanguage(languageId: string) {
-    this.actualTokens = this.generateTokens(languageId);
-    this.behaviorSubject.next(this.actualTokens);
+    this.activeLanguageId = languageId;
+    this.activeTokens = this.generateTokens(languageId);
+    this.behaviorSubject.next(this.activeTokens);
   }
 
   get(token: string): string {
-    return this.actualTokens[token] as string;
+    return this.activeTokens[token] as string;
   }
 
   private generateTokens(languageId: string): LanguageTokens {

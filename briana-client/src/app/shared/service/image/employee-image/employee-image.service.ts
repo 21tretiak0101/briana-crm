@@ -3,9 +3,7 @@ import {ImageService} from '../image.service';
 import {Observable} from 'rxjs';
 import {EmployeeService} from '../../employee/employee.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EmployeeImageService extends ImageService {
   constructor(private employeeService: EmployeeService) {
     super();

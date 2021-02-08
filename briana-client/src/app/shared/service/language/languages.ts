@@ -91,9 +91,13 @@ export const TOKENS: LanguageTokens = {
     en: 'Minimal password length:',
     ru: 'Минимальная длина пароля:'
   },
-  chooseLang: {
+  language: {
     en: 'Language',
     ru: 'Язык системы'
+  },
+  chLanguage: {
+    en: 'Choose language',
+    ru: 'Выберите язык'
   },
   upPass: {
     en: 'Update password',
@@ -110,6 +114,10 @@ export const TOKENS: LanguageTokens = {
   postcode: {
     en: 'Postcode',
     ru: 'Почтовый индекс'
+  },
+  position: {
+    en: 'Position',
+    ru: 'Должность'
   },
   edit: {
     en: 'Edit',
@@ -191,12 +199,60 @@ export const TOKENS: LanguageTokens = {
     en: 'New category',
     ru: 'Новая категория'
   },
+  clNew: {
+    en: 'New client',
+    ru: 'Новый клиент'
+  },
+  emNew: {
+    en: 'New employee',
+    ru: 'Новый сотрудник'
+  },
+  posNew: {
+    en: 'New position',
+    ru: 'Новая должность'
+  },
+  chPos: {
+    en: 'Choose a position',
+    ru: 'Выберите должность'
+  },
   chCat: {
     en: 'Choose a category',
     ru: 'Выберите категорию'
   },
+  chPerm: {
+    en: 'Choose permissions',
+    ru: 'Выберите разрешения'
+  },
+  permissions: {
+    en: 'Permissions',
+    ru: 'Разрешения'
+  },
   addNew: {
-    en: 'Add new',
-    ru: 'Добавить новую'
+    en: 'Add',
+    ru: 'Добавить'
+  },
+  applyFilter: {
+    en: 'Apply filter',
+    ru: 'Применить фильтр'
+  },
+  orderNumber: {
+    en: 'Order number',
+    ru: 'Номер заказа'
+  },
+  start: {
+    en: 'Start',
+    ru: 'Начало'
+  },
+  end: {
+    en: 'End',
+    ru: 'Конец'
+  },
+  total: {
+    en: 'Total',
+    ru: 'Итого'
+  },
+  employeeData: {
+    en: 'Employee information',
+    ru: 'Информация о сотруднике'
   }
 };
