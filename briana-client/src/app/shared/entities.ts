@@ -5,19 +5,20 @@ export interface Described {
 
 export interface Employee extends Described {
   readonly id?: number;
-  name: string;
-  authorities?: string[];
+  email: string;
+  positionName?: string;
+  position?: Position;
   readonly organizationId?: number;
+  authorities?: string[];
   password?: string;
   enabled?: boolean;
-  phone: string;
-  email: string;
-  address: Address;
-  positionName: string;
+  phone?: string;
+  address?: Address;
+  imgSrc?: string;
 }
 
 export interface Position extends Described {
-  readonly id?: number;
+  readonly id?: string;
   permissions?: string[];
 }
 
@@ -38,9 +39,10 @@ export interface Owner {
 }
 
 export interface Category {
-  id: string;
+  id?: string;
   name: string;
   imageSrc?: string;
+  description?: string;
 }
 
 export interface Product {
@@ -63,12 +65,6 @@ export interface Filter {
   start?: Date;
   end?: Date;
   order?: number;
-}
-
-export interface Authenticated {
-  employeeId: number;
-  organizationId: number;
-  authorities: string[];
 }
 
 export interface Client {
@@ -94,4 +90,3 @@ export enum EventType {
   UPDATE = 'update',
   DELETE = 'delete'
 }
-
